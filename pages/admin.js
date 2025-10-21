@@ -1,134 +1,137 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Admin() {
-  const [stock, setStock] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [newItem, setNewItem] = useState({
-    title: "",
-    desc: "",
-    price: "",
-    img: "",
-  });
+  const [items, setItems] = useState([]);
+  const [message, setMessage] = useState("");
+  const [saving, setSaving] = useState(false);
 
-  // Загружаем текущие данные
+  // Загружаем данные при открытии страницы
   useEffect(() => {
     fetch("/stock/stock.json?cache_bust=" + Date.now())
       .then((res) => res.json())
-      .then((data) => {
-        setStock(data);
-        setLoading(false);
-      })
-      .catch((err) => console.error("Ошибка загрузки:", err));
+      .then((data) => setItems(data))
+      .catch((err) => {
+        console.error("Ошибка загрузки stock.json:", err);
+        setMessage("⚠ Не удалось загрузить данные.");
+      });
   }, []);
 
-  // Изменение существующих полей
-  const handleChange = (index, field, value) => {
-    const updated = [...stock];
-    updated[index][field] = value;
-    setStock(updated);
-  };
-
-  // Добавление новой техники
-  const addNewItem = () => {
-    if (!newItem.title || !newItem.price) {
-      alert("Пожалуйста, заполните хотя бы название и цену");
-      return;
-    }
-    setStock([...stock, newItem]);
-    setNewItem({ title: "", desc: "", price: "", img: "" });
-  };
-
-  // Сохранение изменений
+  // Сохраняем изменения
   const saveChanges = async () => {
-    const res = await fetch("/api/update-stock", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(stock, null, 2),
-    });
-    if (res.ok) alert("✅ Изменения сохранены!");
-    else alert("❌ Ошибка при сохранении");
+    setSaving(true);
+    setMessage("");
+
+    try {
+      const res = await fetch("/api/update-stock", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(items),
+      });
+
+      if (res.ok) {
+        setMessage("✅ Изменения успешно сохранены!");
+      } else {
+        const errData = await res.json();
+        setMessage(`❌ Ошибка: ${errData.error || "Не удалось сохранить"}`);
+      }
+    } catch (err) {
+      console.error(err);
+      setMessage("⚠ Ошибка соединения с сервером.");
+    } finally {
+      setSaving(false);
+    }
   };
 
-  if (loading) return <p className="text-center mt-10">Загрузка...</p>;
+  // Добавить новую технику
+  const addNewItem = () => {
+    setItems([
+      ...items,
+      {
+        title: "Новая техника",
+        desc: "Описание",
+        price: "0 ₽",
+        img: "/stock/example.jpg",
+      },
+    ]);
+  };
+
+  // Удалить элемент
+  const removeItem = (index) => {
+    if (window.confirm("Удалить этот элемент?")) {
+      setItems(items.filter((_, i) => i !== index));
+    }
+  };
+
+  // Изменить поле
+  const updateField = (index, field, value) => {
+    const updated = [...items];
+    updated[index][field] = value;
+    setItems(updated);
+  };
 
   return (
-    <div className="max-w-4xl mx-auto py-10 px-6">
-      <h1 className="text-2xl font-bold mb-6 text-center">Панель редактирования техники</h1>
+    <div className="p-8 max-w-5xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6">⚙️ Панель администратора</h1>
 
-      {stock.map((item, i) => (
-        <div key={i} className="mb-6 p-4 border rounded-lg shadow-sm">
-          <input
-            type="text"
-            value={item.title}
-            onChange={(e) => handleChange(i, "title", e.target.value)}
-            className="w-full border p-2 mb-2 rounded"
-            placeholder="Название техники"
-          />
-          <textarea
-            value={item.desc}
-            onChange={(e) => handleChange(i, "desc", e.target.value)}
-            className="w-full border p-2 mb-2 rounded"
-            placeholder="Описание"
-          />
-          <input
-            type="text"
-            value={item.price}
-            onChange={(e) => handleChange(i, "price", e.target.value)}
-            className="w-full border p-2 mb-2 rounded font-mono"
-            placeholder="Цена"
-          />
-          <input
-            type="text"
-            value={item.img}
-            onChange={(e) => handleChange(i, "img", e.target.value)}
-            className="w-full border p-2 mb-2 rounded"
-            placeholder="Путь к изображению, например /stock/fd30.jpg"
-          />
-        </div>
-      ))}
+      {message && (
+        <p className="mb-6 text-sm font-medium">
+          {message}
+        </p>
+      )}
 
-      <h2 className="text-xl font-semibold mb-2 mt-10">➕ Добавить новую технику</h2>
-      <div className="p-4 border rounded-lg shadow-sm mb-6">
-        <input
-          type="text"
-          value={newItem.title}
-          onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
-          className="w-full border p-2 mb-2 rounded"
-          placeholder="Название техники"
-        />
-        <textarea
-          value={newItem.desc}
-          onChange={(e) => setNewItem({ ...newItem, desc: e.target.value })}
-          className="w-full border p-2 mb-2 rounded"
-          placeholder="Описание"
-        />
-        <input
-          type="text"
-          value={newItem.price}
-          onChange={(e) => setNewItem({ ...newItem, price: e.target.value })}
-          className="w-full border p-2 mb-2 rounded"
-          placeholder="Цена"
-        />
-        <input
-          type="text"
-          value={newItem.img}
-          onChange={(e) => setNewItem({ ...newItem, img: e.target.value })}
-          className="w-full border p-2 mb-2 rounded"
-          placeholder="Путь к изображению, например /stock/fd30.jpg"
-        />
-        <button
-          onClick={addNewItem}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400 transition"
-        >
-          ➕ Добавить
-        </button>
+      <button
+        onClick={addNewItem}
+        className="mb-6 bg-lime-500 hover:bg-lime-400 text-black px-4 py-2 rounded-lg font-semibold"
+      >
+        ➕ Добавить технику
+      </button>
+
+      <div className="space-y-6">
+        {items.map((item, i) => (
+          <div
+            key={i}
+            className="p-4 border rounded-lg shadow-sm bg-white space-y-3"
+          >
+            <input
+              value={item.title}
+              onChange={(e) => updateField(i, "title", e.target.value)}
+              className="w-full border px-3 py-2 rounded"
+              placeholder="Название"
+            />
+            <textarea
+              value={item.desc}
+              onChange={(e) => updateField(i, "desc", e.target.value)}
+              className="w-full border px-3 py-2 rounded"
+              placeholder="Описание"
+            />
+            <input
+              value={item.price}
+              onChange={(e) => updateField(i, "price", e.target.value)}
+              className="w-full border px-3 py-2 rounded"
+              placeholder="Цена"
+            />
+            <input
+              value={item.img}
+              onChange={(e) => updateField(i, "img", e.target.value)}
+              className="w-full border px-3 py-2 rounded"
+              placeholder="Ссылка на изображение"
+            />
+            <button
+              onClick={() => removeItem(i)}
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-md"
+            >
+              Удалить
+            </button>
+          </div>
+        ))}
       </div>
 
       <button
         onClick={saveChanges}
-        className="bg-lime-500 text-white px-6 py-2 rounded-lg hover:bg-lime-400 transition"
+        disabled={saving}
+        className="mt-8 bg-black text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition"
       >
-        💾 Сохранить изменения
+        💾 {saving ? "Сохраняем..." : "Сохранить изменения"}
       </button>
     </div>
   );

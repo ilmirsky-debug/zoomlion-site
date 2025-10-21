@@ -7,12 +7,21 @@ export default function Home() {
   const [heroDarkness, setHeroDarkness] = useState(0);
   const [modalImageIndex, setModalImageIndex] = useState(null);
 
-  useEffect(() => {
-  fetch("/stock/stock.json?cache_bust=" + Date.now())
-    .then((res) => res.json())
-    .then((data) => setStockData(data))
-    .catch((err) => console.error("Ошибка загрузки stock.json:", err));
+ useEffect(() => {
+  const loadStock = async () => {
+    try {
+      const res = await fetch(`/stock/stock.json?nocache=${new Date().getTime()}`, {
+        cache: "no-store",
+      });
+      const data = await res.json();
+      setStockData(data);
+    } catch (err) {
+      console.error("Ошибка загрузки stock.json:", err);
+    }
+  };
+  loadStock();
 }, []);
+
 
   useEffect(() => {
     const handleScroll = () => {
