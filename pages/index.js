@@ -1,12 +1,35 @@
-import { useState, useEffect } from "react";
-import stockData from "@/data/stock.json";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-
 export default function Home() {
+  const [stockData, setStockData] = useState([]);
   const [scrolled, setScrolled] = useState(false);
-  const [modalImageIndex, setModalImageIndex] = useState(null);
   const [heroDarkness, setHeroDarkness] = useState(0);
+  const [modalImageIndex, setModalImageIndex] = useState(null);
+
+  useEffect(() => {
+  fetch("/stock/stock.json?cache_bust=" + Date.now())
+    .then((res) => res.json())
+    .then((data) => setStockData(data))
+    .catch((err) => console.error("Ошибка загрузки stock.json:", err));
+}, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setScrolled(scrollY > 10);
+      setHeroDarkness(Math.min(scrollY / 400, 0.4));
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    const handleKey = (e) => e.key === "Escape" && setModalImageIndex(null);
+    window.addEventListener("keydown", handleKey);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, []);
 
   // список техники
   const products = [
@@ -18,22 +41,8 @@ export default function Home() {
     { title: "Навесное оборудование", desc: "Широкий ассортимент навесного для любых задач.", img: "/attachments.jpg" },
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setScrolled(scrollY > 10);
-      setHeroDarkness(Math.min(scrollY / 400, 0.4));
-    };
-    window.addEventListener("scroll", handleScroll);
-    const handleKey = (e) => e.key === "Escape" && setModalImageIndex(null);
-    window.addEventListener("keydown", handleKey);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("keydown", handleKey);
-    };
-  }, []);
-
   return (
+
     <div className="min-h-screen bg-white text-gray-900">
       {/* ===== ШАПКА ===== */}
       <header className={`fixed top-0 left-0 w-full z-50 transition-all ${scrolled ? "bg-white/90 backdrop-blur-md shadow-sm" : "bg-white/70"}`}>
