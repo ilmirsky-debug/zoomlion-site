@@ -5,9 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "upload:stock": "node scripts/upload-stock-to-yandex.js",
+    "upload:public": "node scripts/upload-public-to-yandex.js"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.914.0",
+    "dotenv": "^17.2.3",
+    "formidable": "^3.5.4",
     "framer-motion": "^12.23.24",
     "next": "15.5.6",
     "react": "19.1.0",

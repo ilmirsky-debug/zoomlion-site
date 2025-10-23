@@ -121,24 +121,25 @@ export default function Home() {
           whileHover={{ y: -6 }}
           className="bg-stone-50 rounded-2xl p-6 shadow-sm ring-1 ring-black/5 hover:shadow-lg transition"
         >
-          <img
-            src={item.img}
-            alt={item.title}
-            className="w-full h-56 object-cover rounded-lg mb-4"
-          />
-          <h3 className="text-lg font-semibold text-stone-900">
-            {item.title}
-          </h3>
-          <p className="text-sm text-stone-600 mt-2">{item.desc}</p>
-          <p className="text-base font-medium text-stone-800 mt-3">
-            {item.price}
-          </p>
-          <a
-            href="#contact"
-            className="mt-4 inline-block text-sm font-medium text-white bg-black px-4 py-2 rounded-md hover:bg-stone-800 transition"
-          >
-            Запросить предложение
-          </a>
+     <img
+  src={`https://storage.yandexcloud.net/zoomlion-files${item.img}`}
+  alt={item.title}
+  className="w-full h-56 object-cover rounded-lg mb-4"
+/>
+<h3 className="text-lg font-semibold text-stone-900">
+  {item.title}
+</h3>
+<p className="text-sm text-stone-600 mt-2">{item.desc}</p>
+<p className="text-base font-medium text-stone-800 mt-3">
+  {item.price}
+</p>
+<a
+  href="#contact"
+  className="mt-4 inline-block text-sm font-medium text-white bg-black px-4 py-2 rounded-md hover:bg-stone-800 transition"
+>
+  Запросить предложение
+</a>
+
         </motion.div>
       ))}
     </div>
