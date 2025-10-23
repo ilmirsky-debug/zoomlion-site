@@ -10,9 +10,9 @@ export default function Home() {
  useEffect(() => {
   const loadStock = async () => {
     try {
-      const res = await fetch(`/stock/stock.json?nocache=${new Date().getTime()}`, {
-        cache: "no-store",
-      });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_STATIC_BASE}/stock/stock.json?nocache=${new Date().getTime()}`, {
+    cache: "no-store",
+});
       const data = await res.json();
       setStockData(data);
     } catch (err) {
