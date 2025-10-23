@@ -53,39 +53,59 @@ export default function Home() {
   return (
 
     <div className="min-h-screen bg-white text-gray-900">
-      {/* ===== ШАПКА ===== */}
-      <header className={`fixed top-0 left-0 w-full z-50 transition-all ${scrolled ? "bg-white/90 backdrop-blur-md shadow-sm" : "bg-white/70"}`}>
-        <nav className="max-w-6xl mx-auto flex justify-between items-center py-4 px-6">
-          <img src="/logo.png" alt="Zoomlion Logo" className="h-10" />
-          <div className="hidden md:flex items-center gap-6 text-sm">
-            <a href="#products" className="hover:text-lime-600">Продукция</a>
-            <a href="#features" className="hover:text-lime-600">Преимущества</a>
-            <a href="#service" className="hover:text-lime-600">Сервис</a>
-            <a href="#contacts" className="hover:text-lime-600">Контакты</a>
-          </div>
-        </nav>
-      </header>
+{/* ===== ШАПКА ===== */}
+<header
+  className={`fixed top-0 left-0 w-full z-50 transition-all ${
+    scrolled
+      ? "bg-white/90 backdrop-blur-md shadow-sm"
+      : "bg-white/70"
+  }`}
+>
+  <nav className="max-w-6xl mx-auto flex justify-between items-center py-4 px-6">
+    <img
+      src="https://storage.yandexcloud.net/zoomlion-files/logo.png"
+      alt="Zoomlion Logo"
+      className="h-10"
+      loading="lazy"
+    />
+    <div className="hidden md:flex items-center gap-6 text-sm">
+      <a href="#products" className="hover:text-lime-600">
+        Продукция
+      </a>
+      <a href="#features" className="hover:text-lime-600">
+        Преимущества
+      </a>
+      <a href="#service" className="hover:text-lime-600">
+        Сервис
+      </a>
+      <a href="#contacts" className="hover:text-lime-600">
+        Контакты
+      </a>
+    </div>
+  </nav>
+</header>
 
-      {/* ===== HERO (восстановленный и отцентрированный) ===== */}
+{/* ===== HERO ===== */}
 <section
   id="hero"
   className="relative flex flex-col items-center justify-center text-center text-white overflow-hidden pt-36 pb-24"
 >
   {/* Фоновая анимация Zoomlion */}
   <img
-    src="/zoomlion-animated.gif"
+    src="https://storage.yandexcloud.net/zoomlion-files/zoomlion-animated.gif"
     alt="Анимированный логотип Zoomlion"
     className="absolute inset-0 w-full h-full object-contain object-center"
     style={{ zIndex: 0 }}
+    loading="lazy"
   />
 
-  {/* Затемнение для читаемости текста */}
+  {/* Затемнение */}
   <div
     className="absolute inset-0 bg-black/30"
     style={{ zIndex: 1 }}
   ></div>
 
-  {/* Контент поверх фона */}
+  {/* Контент */}
   <div className="relative z-10 max-w-3xl mx-auto px-6">
     <h1 className="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg">
       Профессиональная складская техника{" "}
@@ -105,64 +125,122 @@ export default function Home() {
   </div>
 </section>
 
-
-
-      {/* ===== ПРОДУКЦИЯ ===== */}
+{/* ===== ТЕХНИКА В НАЛИЧИИ ===== */}
 <section id="stock" className="py-20 bg-white">
   <div className="max-w-6xl mx-auto px-6">
     <h2 className="text-3xl font-semibold text-center text-stone-900 mb-12">
       Техника в наличии
     </h2>
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-      {stockData.map((item, i) => (
-        <motion.div
-          key={i}
-          whileHover={{ y: -6 }}
-          className="bg-stone-50 rounded-2xl p-6 shadow-sm ring-1 ring-black/5 hover:shadow-lg transition"
-        >
-     <img
-  src={`${process.env.NEXT_PUBLIC_STATIC_BASE}${item.img}`}
-  alt={item.title}
-  loading="lazy"
-  className="w-full h-56 object-cover rounded-lg mb-4"
-/>
+    {stockData.length === 0 ? (
+      <p className="text-center text-gray-500">Загрузка данных...</p>
+    ) : (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        {stockData.map((item, i) => (
+          <motion.div
+            key={i}
+            whileHover={{ y: -6 }}
+            className="bg-stone-50 rounded-2xl p-6 shadow-sm ring-1 ring-black/5 hover:shadow-lg transition"
+          >
+            <img
+              src={`https://storage.yandexcloud.net/zoomlion-files${item.img}`}
+              alt={item.title}
+              loading="lazy"
+              className="w-full h-56 object-cover rounded-lg mb-4"
+              onError={(e) => {
+                e.target.src = "https://storage.yandexcloud.net/zoomlion-files/noimage.jpg";
+              }}
+            />
 
-<h3 className="text-lg font-semibold text-stone-900">
-  {item.title}
-</h3>
-<p className="text-sm text-stone-600 mt-2">{item.desc}</p>
-<p className="text-base font-medium text-stone-800 mt-3">
-  {item.price}
-</p>
-<a
-  href="#contact"
-  className="mt-4 inline-block text-sm font-medium text-white bg-black px-4 py-2 rounded-md hover:bg-stone-800 transition"
->
-  Запросить предложение
-</a>
-
-        </motion.div>
-      ))}
-    </div>
+            <h3 className="text-lg font-semibold text-stone-900">
+              {item.title}
+            </h3>
+            <p className="text-sm text-stone-600 mt-2">{item.desc}</p>
+            <p className="text-base font-medium text-stone-800 mt-3">
+              {item.price}
+            </p>
+            <a
+              href="#contacts"
+              className="mt-4 inline-block text-sm font-medium text-white bg-black px-4 py-2 rounded-md hover:bg-stone-800 transition"
+            >
+              Запросить предложение
+            </a>
+          </motion.div>
+        ))}
+      </div>
+    )}
   </div>
 </section>
 
-      <section id="products" className="bg-gray-50 py-20">
-        <h2 className="text-3xl font-semibold text-center mb-10">Наша продукция</h2>
-        <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
-          {products.map((p, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1, duration: 0.6 }} viewport={{ once: true }} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow ring-1 ring-gray-200">
-              <img src={p.img} alt={p.title} className="w-full h-56 object-cover cursor-pointer hover:opacity-90 transition" loading="lazy" onClick={() => setModalImageIndex(i)} />
-              <div className="p-6 text-center">
-                <h3 className="text-lg font-semibold mb-2">{p.title}</h3>
-                <p className="text-gray-600 text-sm mb-4">{p.desc}</p>
-                <a href="#contacts" className="inline-block bg-lime-400 text-gray-900 px-5 py-2 rounded-lg font-medium hover:bg-lime-300 transition">Узнать подробнее</a>
-              </div>
-            </motion.div>
-          ))}
+
+{/* ===== НАША ПРОДУКЦИЯ ===== */}
+<section id="products" className="bg-gray-50 py-20">
+  <h2 className="text-3xl font-semibold text-center mb-10">
+    Наша продукция
+  </h2>
+  <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
+    {[
+      {
+        title: "Вилочные погрузчики",
+        desc: "Грузоподъёмность от 1 до 18 тонн. Электрические и дизельные модели.",
+        img: "https://storage.yandexcloud.net/zoomlion-files/forklift.jpg",
+      },
+      {
+        title: "Ножничные подъемники",
+        desc: "Высота подъёма до 12 м. Надёжная платформа для работы на высоте.",
+        img: "https://storage.yandexcloud.net/zoomlion-files/lift.jpg",
+      },
+      {
+        title: "Телескопические подъемники",
+        desc: "Грузоподъёмность до 500 кг. Большой вылет стрелы.",
+        img: "https://storage.yandexcloud.net/zoomlion-files/telescopic.jpg",
+      },
+      {
+        title: "Коленчатые подъемники",
+        desc: "Рабочая высота до 18 метров. Отличная манёвренность.",
+        img: "https://storage.yandexcloud.net/zoomlion-files/articulating-boom.jpg",
+      },
+      {
+        title: "Телескопические погрузчики",
+        desc: "Грузоподъёмность до 3 тонн. Многофункциональные решения.",
+        img: "https://storage.yandexcloud.net/zoomlion-files/telehandler.jpg",
+      },
+      {
+        title: "Навесное оборудование",
+        desc: "Широкий ассортимент навесного для любых задач.",
+        img: "https://storage.yandexcloud.net/zoomlion-files/attachments.jpg",
+      },
+    ].map((p, i) => (
+      <motion.div
+        key={i}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: i * 0.1, duration: 0.6 }}
+        viewport={{ once: true }}
+        className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow ring-1 ring-gray-200"
+      >
+        <img
+          src={p.img}
+          alt={p.title}
+          className="w-full h-56 object-cover cursor-pointer hover:opacity-90 transition"
+          loading="lazy"
+          onClick={() => setModalImageIndex(i)}
+        />
+        <div className="p-6 text-center">
+          <h3 className="text-lg font-semibold mb-2">{p.title}</h3>
+          <p className="text-gray-600 text-sm mb-4">{p.desc}</p>
+          <a
+            href="#contacts"
+            className="inline-block bg-lime-400 text-gray-900 px-5 py-2 rounded-lg font-medium hover:bg-lime-300 transition"
+          >
+            Узнать подробнее
+          </a>
         </div>
-      </section>
+      </motion.div>
+    ))}
+  </div>
+</section>
+
 
       {/* ===== ПРЕИМУЩЕСТВА ===== */}
       <section id="features" className="py-20 bg-white">
