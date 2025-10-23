@@ -122,10 +122,12 @@ export default function Home() {
           className="bg-stone-50 rounded-2xl p-6 shadow-sm ring-1 ring-black/5 hover:shadow-lg transition"
         >
      <img
-  src={`https://storage.yandexcloud.net/zoomlion-files${item.img}`}
+  src={`${process.env.NEXT_PUBLIC_STATIC_BASE}${item.img}`}
   alt={item.title}
+  loading="lazy"
   className="w-full h-56 object-cover rounded-lg mb-4"
 />
+
 <h3 className="text-lg font-semibold text-stone-900">
   {item.title}
 </h3>
