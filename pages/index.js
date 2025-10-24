@@ -14,9 +14,7 @@ export default function Home() {
       try {
         const res = await fetch(
           "https://storage.yandexcloud.net/zoomlion-files/stock/stock.json",
-          {
-            cache: "no-store",
-          }
+          { cache: "no-store" }
         );
         const data = await res.json();
         setStockData(data);
@@ -44,7 +42,7 @@ export default function Home() {
     };
   }, []);
 
-  // список техники
+  // ✅ Список техники должен быть ЗДЕСЬ, не внутри return
   const products = [
     {
       title: "Вилочные погрузчики",
@@ -78,9 +76,12 @@ export default function Home() {
     },
   ];
 
+  // ✅ Только теперь возвращаем разметку
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* ===== ШАПКА ===== */}
+
+
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all ${
           scrolled ? "bg-white/90 backdrop-blur-md shadow-sm" : "bg-white/70"
@@ -391,73 +392,58 @@ export default function Home() {
         </div>
       )}
 
-      {/* ===== МОДАЛЬНОЕ ОКНО ===== */}
-    {showForm && (
-      <div
-        className="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999]"
-        onClick={(e) => e.target === e.currentTarget && setShowForm(false)}
-      >
-        <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-xl text-center relative">
-          <button
-            onClick={() => setShowForm(false)}
-            className="absolute top-3 right-4 text-gray-400 hover:text-black text-2xl"
-          >
-            ×
-          </button>
-
-          <h2 className="text-2xl font-semibold mb-4">
-            Запросить предложение
-          </h2>
-
-          <form
-            onSubmit={async (e) => {
-              e.preventDefault();
-              const name = e.target.name.value;
-              const phone = e.target.phone.value;
-              const comment = e.target.comment.value;
-
-              const res = await fetch("/api/send-telegram", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, phone, comment }),
-              });
-
-              if (res.ok) {
-                alert("✅ Заявка отправлена!");
-                setShowForm(false);
-              } else {
-                alert("❌ Ошибка при отправке. Попробуйте позже.");
-              }
-            }}
-            className="space-y-4"
-          >
-            <input
-              name="name"
-              placeholder="Ваше имя"
-              required
-              className="w-full border px-4 py-2 rounded"
-            />
-            <input
-              name="phone"
-              placeholder="Телефон"
-              required
-              className="w-full border px-4 py-2 rounded"
-            />
-            <textarea
-              name="comment"
-              placeholder="Комментарий (по желанию)"
-              className="w-full border px-4 py-2 rounded"
-            />
+            {/* ===== МОДАЛЬНОЕ ОКНО ===== */}
+      {showForm && (
+        <div
+          className="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999]"
+          onClick={(e) => e.target === e.currentTarget && setShowForm(false)}
+        >
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-xl text-center relative">
             <button
-              type="submit"
-              className="w-full bg-lime-500 hover:bg-lime-400 text-white py-2 rounded font-medium transition"
+              onClick={() => setShowForm(false)}
+              className="absolute top-3 right-4 text-gray-400 hover:text-black text-2xl"
             >
-              Отправить
+              ×
             </button>
-          </form>
+
+            <h2 className="text-2xl font-semibold mb-4">Запросить предложение</h2>
+
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const name = e.target.name.value;
+                const phone = e.target.phone.value;
+                const comment = e.target.comment.value;
+
+                const res = await fetch("/api/send-telegram", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ name, phone, comment }),
+                });
+
+                if (res.ok) {
+                  alert("✅ Заявка отправлена!");
+                  setShowForm(false);
+                } else {
+                  alert("❌ Ошибка при отправке. Попробуйте позже.");
+                }
+              }}
+              className="space-y-4"
+            >
+              <input name="name" placeholder="Ваше имя" required className="w-full border px-4 py-2 rounded" />
+              <input name="phone" placeholder="Телефон" required className="w-full border px-4 py-2 rounded" />
+              <textarea name="comment" placeholder="Комментарий (по желанию)" className="w-full border px-4 py-2 rounded" />
+              <button
+                type="submit"
+                className="w-full bg-lime-500 hover:bg-lime-400 text-white py-2 rounded font-medium transition"
+              >
+                Отправить
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
-    )}
-  </div>
-);
+      )}
+    </div>
+  );
 }
+
