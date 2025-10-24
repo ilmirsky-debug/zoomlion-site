@@ -42,7 +42,7 @@ export default function Home() {
     };
   }, []);
 
-  // ✅ Список техники должен быть ЗДЕСЬ, не внутри return
+  // ✅ Список техники — должен быть ДО return
   const products = [
     {
       title: "Вилочные погрузчики",
@@ -76,11 +76,10 @@ export default function Home() {
     },
   ];
 
-  // ✅ Только теперь возвращаем разметку
+  // ✅ Теперь можно возвращать разметку
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* ===== ШАПКА ===== */}
-
 
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all ${
