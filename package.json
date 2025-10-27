@@ -25,5 +25,13 @@
     "autoprefixer": "^10.4.21",
     "tailwindcss": "^4",
     "typescript": "5.9.3"
-  }
+  },
+"scripts": {
+  "build": "next build",
+  "start": "next start",
+  "dev": "next dev"
+},
+"engines": {
+  "node": "18.x"
+}
 }
