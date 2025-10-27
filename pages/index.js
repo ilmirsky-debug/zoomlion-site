@@ -79,71 +79,67 @@ export default function Home() {
   // ✅ Теперь можно возвращать разметку
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* ===== ШАПКА ===== */}
+      
+{/* ===== ШАПКА ===== */}
+<header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-sm">
+  <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-2">
+    {/* Явно указываем маленький логотип */}
+    <img
+      src="/logo.png"
+      alt="Zoomlion"
+      className="block h-10 w-auto object-contain"
+      style={{ maxWidth: 220 }}
+    />
 
-      <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all ${
-          scrolled ? "bg-white/90 backdrop-blur-md shadow-sm" : "bg-white/70"
-        }`}
-      >
-        <nav className="max-w-6xl mx-auto flex justify-between items-center py-4 px-6">
-          <img
-            src="https://storage.yandexcloud.net/zoomlion-files/logo.png"
-            alt="Zoomlion Logo"
-            className="h-10"
-            loading="lazy"
-          />
-          <div className="hidden md:flex items-center gap-6 text-sm">
-            <a href="#products" className="hover:text-lime-600">
-              Продукция
-            </a>
-            <a href="#features" className="hover:text-lime-600">
-              Преимущества
-            </a>
-            <a href="#service" className="hover:text-lime-600">
-              Сервис
-            </a>
-            <a href="#contacts" className="hover:text-lime-600">
-              Контакты
-            </a>
-          </div>
-        </nav>
-      </header>
+    {/* Навигация — теперь должна поместиться */}
+    <nav className="flex items-center gap-6 text-gray-800 font-medium text-sm">
+      <a href="#products" className="hover:text-lime-600 transition">Продукция</a>
+      <a href="#features" className="hover:text-lime-600 transition">Преимущества</a>
+      <a href="#service" className="hover:text-lime-600 transition">Сервис</a>
+      <a href="#contacts" className="hover:text-lime-600 transition">Контакты</a>
+    </nav>
+  </div>
+</header>
 
-      {/* ===== HERO ===== */}
-      <section
-        id="hero"
-        className="relative flex flex-col items-center justify-center text-center text-white overflow-hidden pt-36 pb-24"
-      >
-        <img
-          src="https://storage.yandexcloud.net/zoomlion-files/zoomlion-animated.gif"
-          alt="Анимированный логотип Zoomlion"
-          className="absolute inset-0 w-full h-full object-contain object-center"
-          style={{ zIndex: 0 }}
-          loading="lazy"
-        />
+{/* ===== HERO ===== */}
+<section
+  id="hero"
+  className="relative flex flex-col items-center justify-center text-center text-white overflow-hidden pt-28 pb-16"
+>
+  {/* Анимированный GIF */}
+  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+    <img
+      src="https://storage.yandexcloud.net/zoomlion-files/zoomlion-animated.gif"
+      alt="Анимированный логотип Zoomlion"
+      className="max-w-[700px] w-[70%] h-auto object-contain opacity-90 translate-y-10"
+      loading="lazy"
+      style={{ zIndex: 0 }}
+    />
+  </div>
 
-        <div className="absolute inset-0 bg-black/30" style={{ zIndex: 1 }} />
+  {/* Полупрозрачный тёмный слой */}
+  <div className="absolute inset-0 bg-black/35" style={{ zIndex: 1 }} />
 
-        <div className="relative z-10 max-w-3xl mx-auto px-6">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg">
-            Профессиональная складская техника{" "}
-            <span className="text-lime-400">Zoomlion</span>
-          </h1>
+  {/* Текст */}
+  <div className="relative z-10 max-w-3xl mx-auto px-6">
+    <h1 className="text-3xl md:text-5xl font-extrabold mb-4 drop-shadow-lg leading-tight">
+      Профессиональная складская техника{" "}
+      <span className="text-lime-400">Zoomlion</span>
+    </h1>
 
-          <p className="text-lg text-gray-100 mb-8 drop-shadow-md">
-            Официальный дилер в России. Надёжность, производительность и
-            сервис.
-          </p>
+    <p className="text-lg text-gray-100 mb-8 drop-shadow-md">
+      Официальный дилер в России. Надёжность, производительность и сервис.
+    </p>
 
-          <a
-            href="#contacts"
-            className="inline-block bg-lime-400 text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-lime-300 transition"
-          >
-            Получить консультацию
-          </a>
-        </div>
-      </section>
+    <a
+      href="#contacts"
+      className="inline-block bg-lime-400 text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-lime-300 transition"
+    >
+      Получить консультацию
+    </a>
+  </div>
+</section>
+
 
       {/* ===== ТЕХНИКА В НАЛИЧИИ ===== */}
       <section id="stock" className="py-20 bg-white">
@@ -392,51 +388,51 @@ export default function Home() {
       )}
 
             {/* ===== МОДАЛЬНОЕ ОКНО ===== */}
-      {showForm && (
-        <div
-          className="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999]"
-          onClick={(e) => e.target === e.currentTarget && setShowForm(false)}
+{showForm && (
+  <div
+    className="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999]"
+    onClick={(e) => e.target === e.currentTarget && setShowForm(false)}
+  >
+    <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-xl text-center relative">
+      <button
+        onClick={() => setShowForm(false)}
+        className="absolute top-3 right-4 text-gray-400 hover:text-black text-2xl"
+      >
+        ×
+      </button>
+
+      <h2 className="text-2xl font-semibold mb-4">Запросить предложение</h2>
+
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          const name = e.target.name.value;
+          const phone = e.target.phone.value;
+          const comment = e.target.comment.value;
+
+          const res = await fetch("/api/send-telegram", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, phone, comment }),
+          });
+
+          if (res.ok) {
+            alert("✅ Заявка отправлена!");
+            setShowForm(false);
+          } else {
+            alert("❌ Ошибка при отправке. Попробуйте позже.");
+          }
+        }}
+        className="space-y-4"
+      >
+        <input name="name" placeholder="Ваше имя" required className="w-full border px-4 py-2 rounded" />
+        <input name="phone" placeholder="Телефон" required className="w-full border px-4 py-2 rounded" />
+        <textarea name="comment" placeholder="Комментарий (по желанию)" className="w-full border px-4 py-2 rounded" />
+        <button
+          type="submit"
+          className="w-full bg-lime-500 hover:bg-lime-400 text-white py-2 rounded font-medium transition"
         >
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-xl text-center relative">
-            <button
-              onClick={() => setShowForm(false)}
-              className="absolute top-3 right-4 text-gray-400 hover:text-black text-2xl"
-            >
-              ×
-            </button>
-
-            <h2 className="text-2xl font-semibold mb-4">Запросить предложение</h2>
-
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const name = e.target.name.value;
-                const phone = e.target.phone.value;
-                const comment = e.target.comment.value;
-
-                const res = await fetch("/api/send-telegram", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ name, phone, comment }),
-                });
-
-                if (res.ok) {
-                  alert("✅ Заявка отправлена!");
-                  setShowForm(false);
-                } else {
-                  alert("❌ Ошибка при отправке. Попробуйте позже.");
-                }
-              }}
-              className="space-y-4"
-            >
-              <input name="name" placeholder="Ваше имя" required className="w-full border px-4 py-2 rounded" />
-              <input name="phone" placeholder="Телефон" required className="w-full border px-4 py-2 rounded" />
-              <textarea name="comment" placeholder="Комментарий (по желанию)" className="w-full border px-4 py-2 rounded" />
-              <button
-                type="submit"
-                className="w-full bg-lime-500 hover:bg-lime-400 text-white py-2 rounded font-medium transition"
-              >
-                Отправить
+          Отправить
               </button>
             </form>
           </div>

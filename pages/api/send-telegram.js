@@ -16,6 +16,9 @@ ${product ? `🚜 Товар: ${product}` : ""}
   try {
     const token = process.env.TELEGRAM_BOT_TOKEN;
     const chatId = process.env.TELEGRAM_CHAT_ID;
+console.log("BOT TOKEN:", process.env.TELEGRAM_BOT_TOKEN ? "✅ Есть" : "❌ Нет");
+console.log("CHAT ID:", process.env.TELEGRAM_CHAT_ID ? "✅ Есть" : "❌ Нет");
+
 
     if (!token || !chatId) {
       console.error("❌ Не задан TELEGRAM_BOT_TOKEN или TELEGRAM_CHAT_ID");
