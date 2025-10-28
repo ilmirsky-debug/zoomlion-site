@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Head from "next/head";
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -42,7 +43,7 @@ export default function Home() {
     };
   }, []);
 
-  // ✅ Список техники — должен быть ДО return
+  // ✅ Список техники
   const products = [
     {
       title: "Вилочные погрузчики",
@@ -76,11 +77,74 @@ export default function Home() {
     },
   ];
 
-  // ✅ Теперь можно возвращать разметку
+  // ✅ Возвращаем всю разметку (теперь один return)
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      
-{/* ===== ШАПКА ===== */}
+      <Head>
+        <title>Zoomlion Trade — Вилочные погрузчики и подъёмники в России</title>
+        <meta
+          name="description"
+          content="Официальный дилер Zoomlion в России. Вилочные погрузчики, подъёмники и складская техника с гарантией. Доставка по всей России."
+        />
+        <meta
+          name="keywords"
+          content="Zoomlion, погрузчики, подъёмники, складская техника, вилочный погрузчик, подъемники, дилер Zoomlion Россия, купить Zoomlion"
+        />
+
+        {/* Open Graph */}
+        <meta property="og:title" content="Zoomlion Trade — Вилочные погрузчики и подъёмники в России" />
+        <meta
+          property="og:description"
+          content="Официальный дилер Zoomlion в России. Погрузчики и складская техника в наличии. Гарантия и доставка по всей стране."
+        />
+        <meta property="og:image" content="https://zoomliontrade.ru/og-image.png" />
+        <meta property="og:url" content="https://zoomliontrade.ru" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="ru_RU" />
+
+        {/* Для Telegram / Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Zoomlion Trade — Вилочные погрузчики и подъёмники в России" />
+        <meta
+          name="twitter:description"
+          content="Официальный дилер Zoomlion. Надёжность, гарантия и доставка по всей России."
+        />
+        <meta name="twitter:image" content="https://zoomliontrade.ru/og-image.png" />
+
+{/* --- Структурированные данные для SEO --- */}
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Zoomlion Trade",
+      legalName: "ООО «Альфа Трейд»",
+      url: "https://zoomliontrade.ru",
+      logo: "https://zoomliontrade.ru/favicon.png",
+      description:
+        "Официальный дилер Zoomlion в России. Вилочные погрузчики, подъёмники и складская техника. Гарантия, сервис и доставка по всей России.",
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "RU",
+        addressLocality: "Набережные Челны",
+        streetAddress: "Производственный проезд, д. 3",
+        postalCode: "423800",
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+7 (937) 584-45-55",
+        contactType: "sales",
+        areaServed: "RU",
+        availableLanguage: ["Russian"],
+      },
+    }),
+  }}
+/>
+
+      </Head>
+
+      {/* ===== ШАПКА ===== */}
 <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-sm">
   <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-2">
     {/* Явно указываем маленький логотип */}
