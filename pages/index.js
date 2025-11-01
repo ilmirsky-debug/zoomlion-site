@@ -498,6 +498,12 @@ export default function Home() {
         >
           Отправить
               </button>
+<p className="text-xs text-gray-500 text-left mt-2">
+    Нажимая на кнопку, вы соглашаетесь с{" "}
+    <a href="/confidential" className="text-lime-600 underline" target="_blank" rel="noopener noreferrer">
+      политикой конфиденциальности
+    </a>
+  </p>
             </form>
           </div>
         </div>
