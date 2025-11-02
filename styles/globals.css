@@ -60,3 +60,39 @@ img {
   transform: scale(1.03);
   opacity: 0.95;
 }
+/* === Исправление логотипа и заголовка HERO === */
+
+header img {
+  max-height: 40px;
+  width: auto;
+}
+
+#hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.2;
+}
+
+#hero p {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#hero a {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+  header nav {
+    display: none !important; /* чтобы не ломало на телефоне */
+  }
+
+  header img {
+    max-height: 32px;
+  }
+
+  #hero {
+    padding-top: 5rem; /* чтобы не прилипало к шапке */
+  }
+}
