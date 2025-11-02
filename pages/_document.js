@@ -34,8 +34,12 @@ export default function Document() {
         />
         <meta name="twitter:image" content="https://zoomliontrade.ru/og-image.png" />
 
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.png" type="image/png" />
+        {/* Расширенные favicon для SEO */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.png" />
+        <meta name="theme-color" content="#6dbb13" />
 
         {/* Верификация поисковых систем */}
         <meta name="yandex-verification" content="5a9f0729ecd92141" />
@@ -43,6 +47,10 @@ export default function Document() {
           name="google-site-verification"
           content="CKdgblmDfomeaTgwzNHAisOB4lbiphEW9fUWJQcv2Jw"
         />
+
+        {/* Robots & sitemap */}
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+        <meta name="robots" content="index, follow" />
       </Head>
 
       <body>
