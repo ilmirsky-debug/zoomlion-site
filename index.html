@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Официальный дилер Zoomlion в России. Вилочные погрузчики и подъемники.">
+    <meta name="keywords" content="Zoomlion, складская техника, погрузчики, Россия">
+    <title>Zoomlion Russia</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" aria-label="Главная страница Zoomlion">
+                    <img src="images/logo.jpg" alt="Zoomlion Logo" class="logo">
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="#products">Продукция</a></li>
+                        <li><a href="#features">Преимущества</a></li>
+                        <li><a href="#contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+                <a href="tel:+79375844555" class="btn">+7 (937) 584-45-55</a>
+            </div>
+        </div>
+    </header>
+    <div class="hero-banner"></div>
+    <section class="hero-content">
+        <div class="container">
+            <h1>Профессиональная складская техника Zoomlion</h1>
+            <p>Официальный дилер в России с полным сервисным обслуживанием</p>
+            <a href="#contacts" class="btn">Получить консультацию</a>
+        </div>
+    </section>
+    <section id="products" class="products">
+        <div class="container">
+            <h2>Наша продукция</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="images/forklift-1.jpg" alt="Вилочные погрузчики" class="product-img" onclick="openModal(this)">
+                    </div>
+                    <div class="product-info">
+                        <h3>Вилочные погрузчики</h3>
+                        <p>Грузоподъемность от 1 до 18 тонн. Электрические и дизельные.</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="images/scissor-lift.png" alt="Ножничные подъемники" class="product-img" onclick="openModal(this)">
+                    </div>
+                    <div class="product-info">
+                        <h3>Ножничные подъемники</h3>
+                        <p>Высота подъема до 12 метров.</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="images/telehandler.jpg" alt="Телескопические погрузчики" class="product-img" onclick="openModal(this)">
+                    </div>
+                    <div class="product-info">
+                        <h3>Телескопические погрузчики</h3>
+                        <p>Грузоподъемность до 3 тонн.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Почему выбирают Zoomlion?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Высокая производительность</h3>
+                    <p>Мощные двигатели для интенсивной работы</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Сервисное обслуживание</h3>
+                    <p>Гарантия и поддержка по всей России</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <h3>Лучшая цена</h3>
+                    <p>Оптимальное соотношение цены и качества</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer id="contacts">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p><a href="tel:+79375844555">📞 +7 (937) 584-45-55</a></p>
+                    <p><a href="mailto:info@zoomlion-rus.ru">✉️ info@zoomlion-rus.ru</a></p>
+                    <p>🕒 Пн-Пт: 9:00-18:00</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Продукция</h4>
+                    <p><a href="#products">Вилочные погрузчики</a></p>
+                    <p><a href="#products">Подъемники</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Компания</h4>
+                    <p>Официальный дилер Zoomlion</p>
+                    <p>Поставки по всей России</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Zoomlion Russia. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" class="modal-img" alt="">
+            <div id="caption" class="caption"></div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

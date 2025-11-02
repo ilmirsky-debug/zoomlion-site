@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+Disallow: /confidential
+
+Host: https://zoomliontrade.ru
+Sitemap: https://zoomliontrade.ru/sitemap.xml
+Icon: https://zoomliontrade.ru/favicon.png

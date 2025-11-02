@@ -1,0 +1,12 @@
+name = "zoomlion-site"
+compatibility_date = "2025-10-24"
+compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+
+# Это главный ключ для Cloudflare Pages:
+pages_build_output_dir = ".open-next"
+
+[[r2_buckets]]
+binding = "R2_CACHE_BUCKET"
+bucket_name = "cache"
+
+
