@@ -141,40 +141,49 @@ export default function Home() {
 </header>
 
 
-      {/* ===== HERO ===== */}
-      <section id="hero" className="relative flex flex-col items-center justify-center text-center text-white overflow-hidden min-h-screen">
-        <div
-          className="absolute inset-0 will-change-transform"
-          style={{
-            transform: `translateY(${offsetY * 0.2}px) scale(1.05)`,
-            transition: "transform 0.3s ease-out",
-          }}
-        >
-          <img
-            src="/zoomlion-hero.jpg"
-            alt="Zoomlion Hero"
-            className="w-full h-full object-cover object-center"
-            loading="eager"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/60" />
-        </div>
+     import Image from "next/image";
 
-        <div className="relative z-10 max-w-3xl mx-auto px-6">
-          <h1 className="text-3xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-lime-400 to-emerald-300 drop-shadow-[0_4px_15px_rgba(0,0,0,0.6)]">
-            Складская техника <span className="text-white">Zoomlion</span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-200 mb-10 font-medium drop-shadow-lg">
-            Официальный дилер в России. Надёжность, производительность и сервис.
-          </p>
-          <a
-  href="#contacts"
-  className="inline-block bg-lime-400 text-gray-900 px-8 md:px-10 py-3 rounded-full font-semibold hover:bg-lime-300 shadow-lg hover:shadow-lime-300/40 transition-all duration-300 transform hover:-translate-y-1"
+{/* ===== HERO ===== */}
+<section
+  id="hero"
+  className="relative flex flex-col items-center justify-center text-center text-white overflow-hidden min-h-screen"
 >
-  Получить консультацию
-</a>
-        </div>
-        <div className="absolute bottom-10 animate-bounce text-lime-400 text-2xl opacity-80">↓</div>
-      </section>
+  <div
+    className="absolute inset-0 will-change-transform"
+    style={{
+      transform: `translateY(${offsetY * 0.2}px) scale(1.05)`,
+      transition: "transform 0.3s ease-out",
+    }}
+  >
+    <Image
+      src="/zoomlion-hero.jpg"
+      alt="Zoomlion Hero"
+      width={1920}
+      height={1080}
+      priority
+      fetchPriority="high"
+      className="w-full h-full object-cover object-center"
+    />
+    <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/60" />
+  </div>
+
+  <div className="relative z-10 max-w-3xl mx-auto px-6">
+    <h1 className="text-3xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-lime-400 to-emerald-300 drop-shadow-[0_4px_15px_rgba(0,0,0,0.6)]">
+      Складская техника <span className="text-white">Zoomlion</span>
+    </h1>
+    <p className="text-lg md:text-xl text-gray-200 mb-10 font-medium drop-shadow-lg">
+      Официальный дилер в России. Надёжность, производительность и сервис.
+    </p>
+    <a
+      href="#contacts"
+      className="inline-block bg-lime-400 text-gray-900 px-8 md:px-10 py-3 rounded-full font-semibold hover:bg-lime-300 shadow-lg hover:shadow-lime-300/40 transition-all duration-300 transform hover:-translate-y-1"
+    >
+      Получить консультацию
+    </a>
+  </div>
+
+  <div className="absolute bottom-10 animate-bounce text-lime-400 text-2xl opacity-80">↓</div>
+</section>
 
       {/* ===== ТЕХНИКА В НАЛИЧИИ ===== */}
       <section id="stock" className="py-20 bg-white">
