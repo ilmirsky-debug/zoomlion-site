@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
+import Image from "next/image";
+
 
 export default function Home() {
   const [stockData, setStockData] = useState([]);
@@ -11,6 +14,7 @@ export default function Home() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [offsetY, setOffsetY] = useState(0); // ✅ параллакс
 
+  // ✅ Загружаем stock.json
   useEffect(() => {
     const loadStock = async () => {
       try {
@@ -27,6 +31,7 @@ export default function Home() {
     loadStock();
   }, []);
 
+  // ✅ Обработка скролла и клавиш
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -35,8 +40,9 @@ export default function Home() {
       setOffsetY(scrollY);
     };
 
-    window.addEventListener("scroll", handleScroll);
     const handleKey = (e) => e.key === "Escape" && setModalImageIndex(null);
+
+    window.addEventListener("scroll", handleScroll);
     window.addEventListener("keydown", handleKey);
 
     return () => {
@@ -45,79 +51,162 @@ export default function Home() {
     };
   }, []);
 
+  // ✅ SEO и микроразметка для товаров
+  const productsSchema = stockData.map((item) => ({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: item.title,
+    image: `https://zoomliontrade.ru${item.img}`,
+    description: item.desc,
+    brand: {
+      "@type": "Brand",
+      name: "Zoomlion",
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "RUB",
+      price: item.price.replace(/[^\d]/g, ""),
+      availability: "https://schema.org/InStock",
+      url: "https://zoomliontrade.ru/",
+    },
+  }));
+
+  // ✅ Категории (блок карточек)
   const products = [
-    { title: "Вилочные погрузчики", desc: "Грузоподъёмность от 1 до 18 тонн. Электрические и дизельные модели.", img: "/forklift.jpg" },
-    { title: "Ножничные подъемники", desc: "Высота подъёма до 12 м. Надёжная платформа для работы на высоте.", img: "/lift.jpg" },
-    { title: "Телескопические подъемники", desc: "Грузоподъёмность до 500 кг. Большой вылет стрелы.", img: "/telescopic.jpg" },
-    { title: "Коленчатые подъемники", desc: "Рабочая высота до 18 метров. Отличная манёвренность.", img: "/articulating-boom.jpg" },
-    { title: "Телескопические погрузчики", desc: "Грузоподъёмность до 3 тонн. Многофункциональные решения.", img: "/telehandler.jpg" },
-    { title: "Навесное оборудование", desc: "Широкий ассортимент навесного для любых задач.", img: "/attachments.jpg" },
+    {
+      title: "Вилочные погрузчики",
+      desc: "Грузоподъёмность от 1 до 18 тонн. Электрические и дизельные модели.",
+      img: "/forklift.jpg",
+    },
+    {
+      title: "Ножничные подъемники",
+      desc: "Высота подъёма до 12 м. Надёжная платформа для работы на высоте.",
+      img: "/lift.jpg",
+    },
+    {
+      title: "Телескопические подъемники",
+      desc: "Грузоподъёмность до 500 кг. Большой вылет стрелы.",
+      img: "/telescopic.jpg",
+    },
+    {
+      title: "Коленчатые подъемники",
+      desc: "Рабочая высота до 18 метров. Отличная манёвренность.",
+      img: "/articulating-boom.jpg",
+    },
+    {
+      title: "Телескопические погрузчики",
+      desc: "Грузоподъёмность до 3 тонн. Многофункциональные решения.",
+      img: "/telehandler.jpg",
+    },
+    {
+      title: "Навесное оборудование",
+      desc: "Широкий ассортимент навесного для любых задач.",
+      img: "/attachments.jpg",
+    },
   ];
 
-  return (
+
+
+// внутри Home():
+const router = useRouter();
+const isNoIndexPage =
+  router.pathname.startsWith("/admin") ||
+  router.pathname.startsWith("/confidential");
+ 
+ return (
     <div className="min-h-screen bg-white text-gray-900">
       <Head>
-  <title>Zoomlion Trade — Вилочные погрузчики и подъёмники в России</title>
-  <meta
-    name="description"
-    content="Официальный дилер Zoomlion в России. Вилочные погрузчики, подъёмники и складская техника с гарантией. Доставка по всей России."
-  />
-  <meta
-    name="keywords"
-    content="Zoomlion, погрузчики, подъёмники, складская техника, вилочный погрузчик, подъемники, дилер Zoomlion Россия, купить Zoomlion"
-  />
+        {/* ✅ SEO базовые мета-теги */}
+        <title>
+          Вилочные погрузчики и подъёмники — купить Zoomlion и другие бренды в
+          России
+        </title>
+        <meta
+          name="description"
+          content="Продажа вилочных погрузчиков и подъёмников. Дизельные и электрические модели Zoomlion и других брендов. Гарантия, доставка по всей России. Бесплатная консультация и подбор техники."
+        />
+        <meta
+          name="keywords"
+          content="вилочный погрузчик, купить вилочный погрузчик, дизельный вилочный погрузчик, электрический вилочный погрузчик, складская техника, подъемники, погрузчики Zoomlion, Zoomlion Trade, погрузчик цена, вилочный погрузчик Россия"
+        />
 
-  {/* Open Graph */}
-  <meta property="og:title" content="Zoomlion Trade — Вилочные погрузчики и подъёмники в России" />
-  <meta
-    property="og:description"
-    content="Официальный дилер Zoomlion в России. Погрузчики и складская техника в наличии. Гарантия и доставка по всей стране."
-  />
-  <meta property="og:image" content="https://zoomliontrade.ru/og-image.png" />
-  <meta property="og:url" content="https://zoomliontrade.ru" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="ru_RU" />
+        {/* ✅ Open Graph */}
+        <meta
+          property="og:title"
+          content="Вилочные погрузчики и подъёмники — Zoomlion и другие бренды"
+        />
+        <meta
+          property="og:description"
+          content="Официальный дилер вилочных погрузчиков Zoomlion. Продажа дизельных и электрических моделей. Бесплатная доставка и сервис по всей России."
+        />
+        <meta property="og:image" content="https://zoomliontrade.ru/og-image.png" />
+        <meta property="og:url" content="https://zoomliontrade.ru" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="ru_RU" />
 
-  {/* Для Telegram / Twitter */}
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Zoomlion Trade — Вилочные погрузчики и подъёмники в России" />
-  <meta
-    name="twitter:description"
-    content="Официальный дилер Zoomlion. Надёжность, гарантия и доставка по всей России."
-  />
-  <meta name="twitter:image" content="https://zoomliontrade.ru/og-image.png" />
+        {/* ✅ Telegram / Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Купить вилочный погрузчик — Zoomlion и другие бренды"
+        />
+        <meta
+          name="twitter:description"
+          content="Продажа вилочных погрузчиков и подъёмников Zoomlion. Дизельные, электрические — доставка по всей России."
+        />
+        <meta
+          name="twitter:image"
+          content="https://zoomliontrade.ru/og-image.png"
+        />
 
-  {/* --- Структурированные данные для SEO --- */}
-  <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{
-      __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        name: "Zoomlion Trade",
-        legalName: "ООО «Альфа Трейд»",
-        url: "https://zoomliontrade.ru",
-        logo: "https://zoomliontrade.ru/favicon.png",
-        description:
-          "Официальный дилер Zoomlion в России. Вилочные погрузчики, подъёмники и складская техника. Гарантия, сервис и доставка по всей России.",
-        address: {
-          "@type": "PostalAddress",
-          addressCountry: "RU",
-          addressLocality: "Набережные Челны",
-          streetAddress: "Производственный проезд, д. 3",
-          postalCode: "423800",
-        },
-        contactPoint: {
-          "@type": "ContactPoint",
-          telephone: "+7 (937) 584-45-55",
-          contactType: "sales",
-          areaServed: "RU",
-          availableLanguage: ["Russian"],
-        },
-      }),
-    }}
-  />
-</Head>
+        {/* ✅ Organization JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Zoomlion Trade",
+              legalName: "ООО «Альфа Трейд»",
+              url: "https://zoomliontrade.ru",
+              logo: "https://zoomliontrade.ru/favicon.png",
+              description:
+                "Продажа вилочных погрузчиков Zoomlion и других брендов. Официальный дилер в России. Гарантия, доставка, сервис.",
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: "RU",
+                addressLocality: "Набережные Челны",
+                streetAddress: "Производственный проезд, д. 3",
+                postalCode: "423800",
+              },
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+7 (937) 584-45-55",
+                contactType: "sales",
+                areaServed: "RU",
+                availableLanguage: ["Russian"],
+              },
+            }),
+          }}
+        />
+{/* ✅ Robots meta tag for SEO */}
+<meta
+  name="robots"
+  content={isNoIndexPage ? "noindex, nofollow" : "index, follow"}
+/>
+
+
+        {/* ✅ Product Schema (динамический) */}
+        {stockData.length > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(productsSchema),
+            }}
+          />
+        )}
+      </Head>
+
 
 
       {/* ===== ШАПКА ===== */}
