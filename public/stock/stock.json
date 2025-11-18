@@ -110,5 +110,18 @@
       "https://zoomlion-files.storage.yandexcloud.net/stock/Image_2025-08-22_115342_415.jpg",
       "https://zoomlion-files.storage.yandexcloud.net/stock/Image_2025-08-22_114508_427.jpg"
     ]
+  },
+  {
+    "title": "Вилочный погрузчик с кабиной Zoomlion FB30",
+    "desc": "Электрический, Мачта 3м., 80V/280A lion, Сайдшифт",
+    "price": "1736000",
+    "category": "forklifts",
+    "slug": "zoomlion-fb30",
+    "images": [
+      "https://zoomlion-files.storage.yandexcloud.net/stock/Image_20250910154726_155_43.jpg",
+      "https://zoomlion-files.storage.yandexcloud.net/stock/Image_20250910154729_156_43.jpg",
+      "https://zoomlion-files.storage.yandexcloud.net/stock/Image_20250910154732_157_43.jpg",
+      "https://zoomlion-files.storage.yandexcloud.net/stock/Image_20250910154736_158_43.jpg"
+    ]
   }
 ]
