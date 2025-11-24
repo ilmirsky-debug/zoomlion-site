@@ -60,6 +60,7 @@ img {
   transform: scale(1.03);
   opacity: 0.95;
 }
+
 /* === Исправление логотипа и заголовка HERO === */
 
 header img {
@@ -83,9 +84,10 @@ header img {
   margin-top: 1rem;
 }
 
+/* --- Мобильная версия --- */
 @media (max-width: 640px) {
   header nav {
-    display: none !important; /* чтобы не ломало на телефоне */
+    display: none !important;
   }
 
   header img {
@@ -93,6 +95,24 @@ header img {
   }
 
   #hero {
-    padding-top: 5rem; /* чтобы не прилипало к шапке */
+    padding-top: 5rem;
+  }
+} /* ← ДОБАВЛЕНА ЗАКРЫВАЮЩАЯ СКОБКА */
+
+/* --- Glow border --- */
+.glow-border {
+  border-radius: 24px;
+  padding: 2px;
+  background: linear-gradient(135deg, #b3ff00, #00ffa2, #00d4ff, #b3ff00);
+  background-size: 300% 300%;
+  animation: glowRotate 8s linear infinite;
+}
+
+@keyframes glowRotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 300% 50%;
   }
 }

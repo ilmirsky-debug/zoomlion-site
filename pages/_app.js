@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import Head from "next/head";
 import YandexMetrika from "../components/YandexMetrika";
 import GoogleAnalytics from "../components/GoogleAnalytics";
+import ModalForm from "../components/ModalForm";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -79,9 +80,11 @@ export default function App({ Component, pageProps }) {
       <YandexMetrika />
       <GoogleAnalytics />
 
-      {/* --- Контент --- */}
+      {/* --- Контент страниц --- */}
       <Component {...pageProps} />
+
+      {/* --- Глобальное модальное окно "Запросить предложение" --- */}
+      <ModalForm />
     </>
   );
 }
-
