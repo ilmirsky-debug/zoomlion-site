@@ -62,6 +62,7 @@ export default function CategoryPage() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImages, setLightboxImages] = useState([]);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const heroBg = heroBackgrounds[category] || "/hero/default.jpg";
 
@@ -152,93 +153,206 @@ export default function CategoryPage() {
             </h1>
           </div>
         </div>
+{/* === MOBILE SIDEBAR BUTTON === */}
+<div className="lg:hidden mb-6">
+  <button
+    onClick={() => setSidebarOpen(true)}
+    className="px-4 py-2 bg-black text-white rounded-lg font-semibold"
+  >
+    Фильтры
+  </button>
+</div>
+
+{/* === MOBILE SIDEBAR MODAL === */}
+{sidebarOpen && (
+  <div className="fixed inset-0 z-50 bg-black/50 p-4 overflow-auto">
+    <aside className="bg-white w-full max-w-xs h-full p-5 rounded-xl overflow-auto">
+      {/* Кнопка закрытия */}
+      <button
+        onClick={() => setSidebarOpen(false)}
+        className="mb-4 text-red-500 font-bold"
+      >
+        Закрыть
+      </button>
+
+      {/* КАТЕГОРИИ */}
+      <h3 className="text-xl font-bold mb-4">Категории</h3>
+      <div className="flex flex-col gap-2 text-lg">
+        {categoriesList.map((c) => (
+          <button
+            key={c.slug}
+            onClick={() => {
+              goToCategory(c.slug);
+              setSidebarOpen(false); // закрываем модалку после выбора
+            }}
+            className={`p-3 rounded-xl transition text-left border ${
+              c.slug === category
+                ? "bg-black text-white border-black"
+                : "hover:bg-stone-100 border-stone-200"
+            }`}
+          >
+            {c.title}
+          </button>
+        ))}
+      </div>
+
+      {/* ФИЛЬТРЫ */}
+      <div className="mt-8 space-y-5">
+        {/* Грузоподъёмность */}
+        <div>
+          <h4 className="font-semibold mb-2">Грузоподъёмность</h4>
+          <select
+            value={capacityFilter}
+            onChange={(e) => setCapacityFilter(e.target.value)}
+            className="w-full border rounded-xl px-3 py-2 bg-stone-50 focus:bg-white focus:border-black transition"
+          >
+            <option value="">Все</option>
+            {capacityOptions.map((c) => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Высота подъёма */}
+        <div>
+          <h4 className="font-semibold mb-2">Высота подъёма</h4>
+          <select
+            value={liftFilter}
+            onChange={(e) => setLiftFilter(e.target.value)}
+            className="w-full border rounded-xl px-3 py-2 bg-stone-50 focus:bg-white focus:border-black transition"
+          >
+            <option value="">Все</option>
+            {liftOptions.map((l) => (
+              <option key={l} value={l}>{l}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Тип привода */}
+        <div>
+          <h4 className="font-semibold mb-2">Тип привода</h4>
+          <select
+            value={driveFilter}
+            onChange={(e) => setDriveFilter(e.target.value)}
+            className="w-full border rounded-xl px-3 py-2 bg-stone-50 focus:bg-white focus:border-black transition"
+          >
+            <option value="">Все</option>
+            {driveOptions.map((d) => (
+              <option key={d} value={d}>{d}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Сброс фильтров */}
+        {(capacityFilter || liftFilter || driveFilter) && (
+          <button
+            onClick={() => {
+              setCapacityFilter("");
+              setLiftFilter("");
+              setDriveFilter("");
+            }}
+            className="w-full mt-2 bg-red-500 text-white py-2 rounded-xl font-semibold hover:bg-red-600 transition"
+          >
+            Сбросить фильтры
+          </button>
+        )}
+      </div>
+
+      {/* BACK HOME */}
+      <div className="mt-8">
+        <BackHome />
+      </div>
+    </aside>
+  </div>
+)}
+
 
                 {/* SIDEBAR */}
-        <aside className="border rounded-2xl p-5 bg-white shadow-md h-fit sticky top-6">
-          <h3 className="text-xl font-bold mb-4">Категории</h3>
+<aside className="hidden lg:block border rounded-2xl p-5 bg-white shadow-md h-fit sticky top-6">
+  <h3 className="text-xl font-bold mb-4">Категории</h3>
 
-          <div className="flex flex-col gap-2 text-lg">
-            {categoriesList.map((c) => (
-              <button
-                key={c.slug}
-                onClick={() => goToCategory(c.slug)}
-                className={`p-3 rounded-xl transition text-left border ${
-                  c.slug === category
-                    ? "bg-black text-white border-black"
-                    : "hover:bg-stone-100 border-stone-200"
-                }`}
-              >
-                {c.title}
-              </button>
-            ))}
-          </div>
+  <div className="flex flex-col gap-2 text-lg">
+    {categoriesList.map((c) => (
+      <button
+        key={c.slug}
+        onClick={() => goToCategory(c.slug)}
+        className={`p-3 rounded-xl transition text-left border ${
+          c.slug === category
+            ? "bg-black text-white border-black"
+            : "hover:bg-stone-100 border-stone-200"
+        }`}
+      >
+        {c.title}
+      </button>
+    ))}
+  </div>
 
-          {/* FILTERS */}
-          <div className="mt-8 space-y-5">
-            {/* Грузоподъёмность */}
-            <div>
-              <h4 className="font-semibold mb-2">Грузоподъёмность</h4>
-              <select
-                value={capacityFilter}
-                onChange={(e) => setCapacityFilter(e.target.value)}
-                className="w-full border rounded-xl px-3 py-2 bg-stone-50 focus:bg-white focus:border-black transition"
-              >
-                <option value="">Все</option>
-                {capacityOptions.map((c) => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
-              </select>
-            </div>
+  {/* FILTERS */}
+  <div className="mt-8 space-y-5">
+    {/* Грузоподъёмность */}
+    <div>
+      <h4 className="font-semibold mb-2">Грузоподъёмность</h4>
+      <select
+        value={capacityFilter}
+        onChange={(e) => setCapacityFilter(e.target.value)}
+        className="w-full border rounded-xl px-3 py-2 bg-stone-50 focus:bg-white focus:border-black transition"
+      >
+        <option value="">Все</option>
+        {capacityOptions.map((c) => (
+          <option key={c} value={c}>{c}</option>
+        ))}
+      </select>
+    </div>
 
-            {/* Высота подъёма */}
-            <div>
-              <h4 className="font-semibold mb-2">Высота подъёма</h4>
-              <select
-                value={liftFilter}
-                onChange={(e) => setLiftFilter(e.target.value)}
-                className="w-full border rounded-xl px-3 py-2 bg-stone-50 focus:bg-white focus:border-black transition"
-              >
-                <option value="">Все</option>
-                {liftOptions.map((l) => (
-                  <option key={l} value={l}>{l}</option>
-                ))}
-              </select>
-            </div>
+    {/* Высота подъёма */}
+    <div>
+      <h4 className="font-semibold mb-2">Высота подъёма</h4>
+      <select
+        value={liftFilter}
+        onChange={(e) => setLiftFilter(e.target.value)}
+        className="w-full border rounded-xl px-3 py-2 bg-stone-50 focus:bg-white focus:border-black transition"
+      >
+        <option value="">Все</option>
+        {liftOptions.map((l) => (
+          <option key={l} value={l}>{l}</option>
+        ))}
+      </select>
+    </div>
 
-            {/* Тип привода */}
-            <div>
-              <h4 className="font-semibold mb-2">Тип привода</h4>
-              <select
-                value={driveFilter}
-                onChange={(e) => setDriveFilter(e.target.value)}
-                className="w-full border rounded-xl px-3 py-2 bg-stone-50 focus:bg-white focus:border-black transition"
-              >
-                <option value="">Все</option>
-                {driveOptions.map((d) => (
-                  <option key={d} value={d}>{d}</option>
-                ))}
-              </select>
-            </div>
+    {/* Тип привода */}
+    <div>
+      <h4 className="font-semibold mb-2">Тип привода</h4>
+      <select
+        value={driveFilter}
+        onChange={(e) => setDriveFilter(e.target.value)}
+        className="w-full border rounded-xl px-3 py-2 bg-stone-50 focus:bg-white focus:border-black transition"
+      >
+        <option value="">Все</option>
+        {driveOptions.map((d) => (
+          <option key={d} value={d}>{d}</option>
+        ))}
+      </select>
+    </div>
 
-            {/* Сброс фильтров */}
-            {(capacityFilter || liftFilter || driveFilter) && (
-              <button
-                onClick={() => {
-                  setCapacityFilter("");
-                  setLiftFilter("");
-                  setDriveFilter("");
-                }}
-                className="w-full mt-2 bg-red-500 text-white py-2 rounded-xl font-semibold hover:bg-red-600 transition"
-              >
-                Сбросить фильтры
-              </button>
-            )}
-          </div>
+    {(capacityFilter || liftFilter || driveFilter) && (
+      <button
+        onClick={() => {
+          setCapacityFilter("");
+          setLiftFilter("");
+          setDriveFilter("");
+        }}
+        className="w-full mt-2 bg-red-500 text-white py-2 rounded-xl font-semibold hover:bg-red-600 transition"
+      >
+        Сбросить фильтры
+      </button>
+    )}
+  </div>
 
-          <div className="mt-8">
-            <BackHome />
-          </div>
-        </aside>
+  <div className="mt-8">
+    <BackHome />
+  </div>
+</aside>
+
 
         {/* RIGHT COLUMN — ВСЁ ПРАВО    */}
         <div className="space-y-16">
@@ -251,7 +365,7 @@ export default function CategoryPage() {
               </p>
             )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-10 relative z-0">
               {filteredItems.map((item) => {
                 const firstImage = item.images?.[0] || "/stock/noimage.jpg";
 
