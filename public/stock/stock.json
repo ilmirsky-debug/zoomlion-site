@@ -3,7 +3,9 @@
     "title": "Вилочный погрузчик с кабиной Zoomlion FD30",
     "desc": "Дизельный, грузоподъёмность 3 т, высота подъёма 4.5 м",
     "price": "1 498 685 ₽",
-    "images": ["/stock/fd30кабина.jpg"],
+    "images": [
+      "/stock/fd30кабина.jpg"
+    ],
     "img": "/stock/fd30кабина.jpg",
     "category": "forklifts",
     "slug": "vilochniy-pogruzchik-s-kabinoy-zoomlion-fd30",
@@ -15,7 +17,9 @@
     "title": "Подъемник коленчатый Zoomlion ZA14NJE",
     "desc": "Электрический, рабочая высота подъёма 16 м, грузоподъёмность 230 кг",
     "price": "3 940 650 ₽",
-    "images": ["/stock/za14nje.jpg"],
+    "images": [
+      "/stock/za14nje.jpg"
+    ],
     "img": "/stock/za14nje.jpg",
     "category": "articulated-lifts",
     "slug": "podyemnik-kolenchatyy-zoomlion-za14nje",
@@ -27,7 +31,9 @@
     "title": "Телескопический погрузчик Zoomlion ZTH3507",
     "desc": "Грузоподъёмность 3.5 т, вылет стрелы 7 м",
     "price": "6 750 000 ₽",
-    "images": ["/stock/zth3507.jpg"],
+    "images": [
+      "/stock/zth3507.jpg"
+    ],
     "img": "/stock/zth3507.jpg",
     "category": "telehandlers",
     "slug": "teleskopicheskiy-pogruzchik-zoomlion-zth3507",
@@ -39,7 +45,9 @@
     "title": "Вилочный погрузчик Zoomlion FD30",
     "desc": "Дизельный, грузоподъёмность 3 т, высота подъёма 3 м",
     "price": "1 300 000 ₽",
-    "images": ["/stock/fd30.jpg"],
+    "images": [
+      "/stock/fd30.jpg"
+    ],
     "img": "/stock/fd30.jpg",
     "category": "forklifts",
     "slug": "vilochniy-pogruzchik-zoomlion-fd30",
@@ -51,7 +59,9 @@
     "title": "Вилочный погрузчик ДВС Isuzu Zoomlion FD30",
     "desc": "Дизельный, грузоподъёмность 3 т, высота подъёма 3 м",
     "price": "1 530 000 ₽",
-    "images": ["/stock/fd30isuzu.jpg"],
+    "images": [
+      "/stock/fd30isuzu.jpg"
+    ],
     "img": "/stock/fd30isuzu.jpg",
     "category": "forklifts",
     "slug": "vilochniy-pogruzchik-dvs-isuzu-zoomlion-fd30",
@@ -63,7 +73,9 @@
     "title": "Телескопический погрузчик Агри Zoomlion ZTH3507AG",
     "desc": "Грузоподъёмность 3.5 т, вылет стрелы 7 м. Аксиально-поршневой насос",
     "price": "11 159 000 ₽",
-    "images": ["/stock/zth3507ag.jpg"],
+    "images": [
+      "/stock/zth3507ag.jpg"
+    ],
     "img": "/stock/zth3507ag.jpg",
     "category": "telehandlers",
     "slug": "teleskopicheskiy-pogruzchik-agri-zoomlion-zth3507ag",
@@ -75,7 +87,9 @@
     "title": "Вилочный погрузчик с кабиной Zoomlion FD20",
     "desc": "Дизель, Высота подъема 4,5м, сайдшифт",
     "price": "1 425 000 ₽",
-    "images": ["/stock/fd20.jpg"],
+    "images": [
+      "/stock/fd20.jpg"
+    ],
     "img": "/stock/fd20.jpg",
     "category": "forklifts",
     "slug": "vilochniy-pogruzchik-s-kabinoy-zoomlion-fd20",
@@ -87,7 +101,9 @@
     "title": "Вилочный погрузчик Zoomlion FB25",
     "desc": "Электрический, АКБ 80V/230A литий, высота подъема 4,8м., сайдшифт",
     "price": "1 780 000 ₽",
-    "images": ["/stock/fb25.jpg"],
+    "images": [
+      "/stock/fb25.jpg"
+    ],
     "img": "/stock/fb25.jpg",
     "category": "forklifts",
     "slug": "vilochniy-pogruzchik-zoomlion-fb25",
@@ -99,7 +115,9 @@
     "title": "Вилочный погрузчик Zoomlion FD15",
     "desc": "Дизельный, Грузоподъемность 1,5 тонны, Высота подъема 4,5 м., Сайдшифт",
     "price": "1 270 080 ₽",
-    "images": ["/stock/fd15.jpg"],
+    "images": [
+      "/stock/fd15.jpg"
+    ],
     "img": "/stock/fd15.jpg",
     "category": "forklifts",
     "slug": "vilochniy-pogruzchik-zoomlion-fd15",
@@ -185,6 +203,20 @@
     ],
     "capacity": "3,5 т.",
     "liftHeight": "3 м.",
+    "drive": "Дизель"
+  },
+  {
+    "title": "Мини-погрузчик Zoomlion ZS120V",
+    "desc": "Рабочая грузоподъёмность (кг) 1500, Высота выгрузки (мм) 3240, ДВС Kubota",
+    "price": "4 550 000 ₽",
+    "category": "mini-loaders",
+    "slug": "zoomlion-zs120v",
+    "images": [
+      "https://zoomlion-files.storage.yandexcloud.net/stock/5435997183376749637.jpg",
+      "https://zoomlion-files.storage.yandexcloud.net/stock/5435997183376749638.jpg"
+    ],
+    "capacity": "1,5 т.",
+    "liftHeight": "",
     "drive": "Дизель"
   }
 ]

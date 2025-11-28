@@ -9,14 +9,14 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         {/* --- Основное SEO --- */}
-        <title>Zoomlion Trade — Вилочные погрузчики и подъёмники в России</title>
+        <title>Zoomlion Trade — Погрузочная техника Zoomlion — вилочные погрузчики, мини-погрузчики, подъемники в России</title>
         <meta
           name="description"
-          content="Официальный дилер Zoomlion в России. Вилочные погрузчики, подъёмники и складская техника с гарантией и доставкой по всей России."
+          content="Официальный дилер Zoomlion в России. Вилочные погрузчики, подъёмники и мини-погрузчики с гарантией и доставкой по всей России."
         />
         <meta
           name="keywords"
-          content="Zoomlion, вилочные погрузчики, подъёмники, складская техника, дилер Zoomlion, купить Zoomlion, Zoomlion Trade"
+          content="Zoomlion, вилочные погрузчики, подъёмники, мини-погрузчики, дилер Zoomlion, купить Zoomlion, Zoomlion Trade"
         />
 
         {/* --- Favicon и тема --- */}
@@ -26,10 +26,10 @@ export default function App({ Component, pageProps }) {
 
         {/* --- Open Graph --- */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Zoomlion Trade — Вилочные погрузчики и подъёмники" />
+        <meta property="og:title" content="Zoomlion Trade — Вилочные погрузчики, мини-погрузчики и подъёмники" />
         <meta
           property="og:description"
-          content="Официальный дилер Zoomlion в России. Погрузчики и подъёмники с гарантией, доставкой и сервисом."
+          content="Официальный дилер Zoomlion в России. Погрузчики, мини-погрузчики и подъёмники с гарантией, доставкой и сервисом."
         />
         <meta property="og:url" content="https://zoomliontrade.ru" />
         <meta property="og:image" content="https://zoomliontrade.ru/og-image.png" />
@@ -40,7 +40,7 @@ export default function App({ Component, pageProps }) {
         <meta name="twitter:title" content="Zoomlion Trade — техника Zoomlion в России" />
         <meta
           name="twitter:description"
-          content="Вилочные погрузчики и подъёмники Zoomlion — доставка по всей России."
+          content="Вилочные погрузчики, мини-погрузчики и подъёмники Zoomlion — доставка по всей России."
         />
         <meta name="twitter:image" content="https://zoomliontrade.ru/og-image.png" />
 
@@ -56,7 +56,7 @@ export default function App({ Component, pageProps }) {
               url: "https://zoomliontrade.ru",
               logo: "https://zoomliontrade.ru/favicon.png",
               description:
-                "Официальный дилер Zoomlion в России. Погрузчики, подъёмники и складская техника с гарантией и доставкой.",
+                "Официальный дилер Zoomlion в России. Погрузчики, подъёмники, и мини-погрузчики с гарантией и доставкой.",
               address: {
                 "@type": "PostalAddress",
                 addressCountry: "RU",

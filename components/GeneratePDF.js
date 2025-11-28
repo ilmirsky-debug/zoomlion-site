@@ -73,7 +73,7 @@ export default function GeneratePDF({ item }) {
     doc.setFillColor(237, 237, 237); // стиль B
     doc.roundedRect(40, y, pageWidth - 80, 140, 6, 6, "F");
 
-    doc.setFontSize(10);
+    doc.setFontSize(11);
 
     // авто-перенос для адреса
     const addrText = doc.splitTextToSize(`Адрес: ${company.address}`, 250);
@@ -135,16 +135,16 @@ doc.text(model, tableX + 12, y + 75);
 doc.text(`Срок поставки: Техника в наличии`, tableX + 12, y + 95);
 
 // ---- Описание
-doc.text("Описание:", tableX + 12, y + 120);
-const desc = doc.splitTextToSize(item.desc || "", tableW - 20);
-doc.text(desc, tableX + 12, y + 140);
+doc.text("Описание:", tableX + 12, y + 110);
+const descLines = doc.splitTextToSize(item.desc || "", tableW - 20);
+doc.text(descLines, tableX + 12, y + 125);
 
 y += 220;;
 
     // === ИТОГО ===
     doc.setFontSize(18);
     doc.setTextColor(0, 0, 0); // теперь ЧЁРНЫЙ
-    doc.text(`ИТОГО: ${item.price} ₽ (с НДС)`, 40, y);
+    doc.text(`ИТОГО: ${item.price}  (с НДС)`, 40, y);
 
     y += 25;
 

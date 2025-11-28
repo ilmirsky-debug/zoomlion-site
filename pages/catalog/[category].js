@@ -132,7 +132,7 @@ export default function CategoryPage() {
         <title>{getCategoryName(category)}</title>
       </Head>
 
-      <div className="max-w-7xl mx-auto p-6 min-h-screen grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-10">
+      <div className="max-w-7xl mx-auto p-6 min-h-screen grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)] gap-10">
 
         {/* HERO */}
         <div className="col-span-full mb-8 relative rounded-2xl overflow-hidden h-64 sm:h-80 lg:h-96">
@@ -153,9 +153,10 @@ export default function CategoryPage() {
           </div>
         </div>
 
-        {/* SIDEBAR */}
+                {/* SIDEBAR */}
         <aside className="border rounded-2xl p-5 bg-white shadow-md h-fit sticky top-6">
           <h3 className="text-xl font-bold mb-4">Категории</h3>
+
           <div className="flex flex-col gap-2 text-lg">
             {categoriesList.map((c) => (
               <button
@@ -172,9 +173,9 @@ export default function CategoryPage() {
             ))}
           </div>
 
-          {/* FILTERS BLOCK */}
+          {/* FILTERS */}
           <div className="mt-8 space-y-5">
-            {/* --- Грузоподъёмность --- */}
+            {/* Грузоподъёмность */}
             <div>
               <h4 className="font-semibold mb-2">Грузоподъёмность</h4>
               <select
@@ -183,11 +184,13 @@ export default function CategoryPage() {
                 className="w-full border rounded-xl px-3 py-2 bg-stone-50 focus:bg-white focus:border-black transition"
               >
                 <option value="">Все</option>
-                {capacityOptions.map((c) => <option key={c} value={c}>{c}</option>)}
+                {capacityOptions.map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
               </select>
             </div>
 
-            {/* --- Высота подъёма --- */}
+            {/* Высота подъёма */}
             <div>
               <h4 className="font-semibold mb-2">Высота подъёма</h4>
               <select
@@ -196,11 +199,13 @@ export default function CategoryPage() {
                 className="w-full border rounded-xl px-3 py-2 bg-stone-50 focus:bg-white focus:border-black transition"
               >
                 <option value="">Все</option>
-                {liftOptions.map((l) => <option key={l} value={l}>{l}</option>)}
+                {liftOptions.map((l) => (
+                  <option key={l} value={l}>{l}</option>
+                ))}
               </select>
             </div>
 
-            {/* --- Тип привода --- */}
+            {/* Тип привода */}
             <div>
               <h4 className="font-semibold mb-2">Тип привода</h4>
               <select
@@ -209,14 +214,20 @@ export default function CategoryPage() {
                 className="w-full border rounded-xl px-3 py-2 bg-stone-50 focus:bg-white focus:border-black transition"
               >
                 <option value="">Все</option>
-                {driveOptions.map((d) => <option key={d} value={d}>{d}</option>)}
+                {driveOptions.map((d) => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
               </select>
             </div>
 
-            {/* --- Сброс фильтров --- */}
+            {/* Сброс фильтров */}
             {(capacityFilter || liftFilter || driveFilter) && (
               <button
-                onClick={() => { setCapacityFilter(""); setLiftFilter(""); setDriveFilter(""); }}
+                onClick={() => {
+                  setCapacityFilter("");
+                  setLiftFilter("");
+                  setDriveFilter("");
+                }}
                 className="w-full mt-2 bg-red-500 text-white py-2 rounded-xl font-semibold hover:bg-red-600 transition"
               >
                 Сбросить фильтры
@@ -224,66 +235,96 @@ export default function CategoryPage() {
             )}
           </div>
 
-          <div className="mt-8"><BackHome /></div>
+          <div className="mt-8">
+            <BackHome />
+          </div>
         </aside>
 
-        {/* ITEMS */}
-        <div>
-          {filteredItems.length === 0 && (
-            <p className="text-stone-600">Техника в этой категории пока не добавлена.</p>
-          )}
+        {/* RIGHT COLUMN — ВСЁ ПРАВО    */}
+        <div className="space-y-16">
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            {filteredItems.map((item) => {
-              const firstImage = item.images?.[0] || "/stock/noimage.jpg";
-              const isSelected = selectedItems.find((i) => i.slug === item.slug);
+          {/* ITEMS */}
+          <div>
+            {filteredItems.length === 0 && (
+              <p className="text-stone-600">
+                Техника в этой категории пока не добавлена.
+              </p>
+            )}
 
-              return (
-                <div
-                  key={item.slug}
-                  className="border rounded-2xl bg-white shadow-sm hover:shadow-lg transition p-5 flex flex-col h-full"
-                >
-                  {/* Фото */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+              {filteredItems.map((item) => {
+                const firstImage = item.images?.[0] || "/stock/noimage.jpg";
+
+                return (
                   <div
-                    className="w-full h-60 flex items-center justify-center border rounded-xl bg-white shadow-sm overflow-hidden mb-4 cursor-pointer"
-                    onClick={() => openLightbox(item)}
+                    key={item.slug}
+                    className="border rounded-2xl bg-white shadow-sm hover:shadow-lg transition p-5 flex flex-col h-full"
                   >
-                    <img src={firstImage} alt={item.title} className="max-h-full max-w-full object-contain p-2" />
-                  </div>
+                    {/* Фото */}
+                    <div
+                      className="w-full h-60 flex items-center justify-center border rounded-xl bg-white shadow-sm overflow-hidden mb-4 cursor-pointer"
+                      onClick={() => openLightbox(item)}
+                    >
+                      <img
+                        src={firstImage}
+                        alt={item.title}
+                        className="max-h-full max-w-full object-contain p-2"
+                      />
+                    </div>
 
-                  {/* Название, описание, цена */}
-                  <h2 className="text-xl font-semibold mb-2 line-clamp-2 break-words">{item.title}</h2>
-                  <p className="text-stone-600 text-sm mb-4 line-clamp-3">{item.desc}</p>
-                  <div className="mt-auto">
-                    <p className="text-lg font-bold mb-3">{item.price}</p>
-                  </div>
+                    {/* Название / описание */}
+                    <h2 className="text-xl font-semibold mb-2 line-clamp-2 break-words">
+                      {item.title}
+                    </h2>
+                    <p className="text-stone-600 text-sm mb-4 line-clamp-3">
+                      {item.desc}
+                    </p>
 
-                  {/* Кнопка запроса предложения */}
-                  <button
-                    onClick={() => window.openForm && window.openForm(item.title)}
-                    className="w-full px-4 py-2 bg-black text-white rounded-lg hover:bg-stone-800 transition"
-                  >
-                    Запросить предложение
-                  </button>
-<GeneratePDF item={item} />
-                </div>
-              );
-            })}
+                    {/* Характеристики */}
+                    <div className="text-sm text-stone-700 space-y-1 mb-4">
+                      {item.capacity && (
+                        <p><span className="font-semibold">Грузоподъёмность:</span> {item.capacity}</p>
+                      )}
+                      {item.liftHeight && (
+                        <p><span className="font-semibold">Высота подъёма:</span> {item.liftHeight}</p>
+                      )}
+                      {item.drive && (
+                        <p><span className="font-semibold">Тип привода:</span> {item.drive}</p>
+                      )}
+                    </div>
+
+                    {/* Цена */}
+                    <div className="mt-auto">
+                      <p className="text-lg font-bold mb-3">{item.price}</p>
+                    </div>
+
+                    {/* Кнопки */}
+                    <div className="flex flex-col gap-3 mt-4">
+                      <button
+                        onClick={() =>
+                          window.openForm && window.openForm(item.title)
+                        }
+                        className="w-full px-4 py-2 bg-black text-white rounded-lg hover:bg-stone-800 transition"
+                      >
+                        Запросить предложение
+                      </button>
+
+                      <GeneratePDF item={item} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Кнопка генерации PDF для выбранных */}
-          {selectedItems.length > 0 && (
-            <div className="mt-6">
-              <GeneratePDFMultiple items={selectedItems} />
-            </div>
-          )}
-        </div>
+          {/* SEO TEXT — ВСЕГДА ПОД КАРТОЧКАМИ */}
+          <section className="p-7 bg-white border rounded-2xl shadow-sm">
+            <h2 className="text-2xl font-bold mb-4">О категории</h2>
+            <p className="leading-relaxed whitespace-pre-line">{seoText}</p>
+          </section>
+</div>
 
-        {/* SEO TEXT */}
-        <section className="mt-16 p-7 bg-white border rounded-2xl shadow-sm">
-          <h2 className="text-2xl font-bold mb-4">О категории</h2>
-          <p className="leading-relaxed whitespace-pre-line">{seoText}</p>
-        </section>
+
 
         {/* LIGHTBOX */}
         {lightboxOpen && (

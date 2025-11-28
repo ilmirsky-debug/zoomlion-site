@@ -115,4 +115,39 @@ header img {
   100% {
     background-position: 300% 50%;
   }
+/* Свежая настройка для стрелок и кликабельности */
+.swiper-button-next,
+.swiper-button-prev {
+  z-index: 60 !important;        /* наверх */
+  pointer-events: auto !important; /* чтобы кнопки принимали клики */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Если сверху есть оверлей с pointer-events: auto, пытаемся его "прозрачить" для кликов рядом со стрелками */
+.hero-overlay-click-through {
+  pointer-events: none; /* по-умолчанию оверлей не перехватывает клики */
+}
+
+/* Кнопки CTA внутри overlay остаются кликабельными */
+.hero-overlay-click-through .hero-cta {
+  pointer-events: auto;
+}
+
+/* Стили стрелок (оставь свои, просто убедимся в видимости) */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 9999px;
+  background: rgba(0,0,0,0.45);
+  color: #a3e635 !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+.swiper-button-next,
+.swiper-button-prev {
+  z-index: 50 !important;
+pointer-events: auto !important;
+}
 }

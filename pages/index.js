@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import SupportModal from "../components/SupportModal"; // добавить
 import Link from "next/link";
+import HeroSwiper from "../components/HeroSwiperClient";
+
 
 
 
@@ -58,6 +60,7 @@ const openSupport = (type) => {
             <li>Электрические вилочные погрузчики</li>
             <li>Телескопические погрузчики</li>
             <li>Подъёмники для высотных работ</li>
+            <li>Мини-погрузчики</li>
           </ul>
         </div>
       );
@@ -68,7 +71,7 @@ const openSupport = (type) => {
         <div>
           <h3 className="text-2xl font-bold mb-4">Гарантия и сервис</h3>
           <p className="text-stone-700 leading-relaxed">
-            Гарантия до 3 лет. Собственный сервис и склад запчастей.
+            Гарантия до 2 лет. Собственный сервис и склад запчастей.
           </p>
         </div>
       );
@@ -143,7 +146,7 @@ const openSupport = (type) => {
   const products = [
     {
       title: "Вилочные погрузчики",
-      desc: "Грузоподъёмность от 1 до 18 тонн. Электрические и дизельные модели.",
+      desc: "Грузоподъёмность от 1 до 25 тонн. Электрические и дизельные модели.",
       img: "/forklift.jpg",
     },
     {
@@ -163,13 +166,13 @@ const openSupport = (type) => {
     },
     {
       title: "Телескопические погрузчики",
-      desc: "Грузоподъёмность до 3 тонн. Многофункциональные решения.",
+      desc: "Высота подъёма до 82 м. Многофункциональные решения.",
       img: "/telehandler.jpg",
     },
     {
-      title: "Навесное оборудование",
-      desc: "Широкий ассортимент навесного для любых задач.",
-      img: "/attachments.jpg",
+      title: "Мини-погрузчики",
+      desc: "Широкий ассортимент техники с навесным оборудованием для любых задач.",
+      img: "/ZS080V.png",
     },
   ];
 
@@ -186,22 +189,22 @@ const isNoIndexPage =
       <Head>
         {/* ✅ SEO базовые мета-теги */}
         <title>
-          Вилочные погрузчики и подъёмники — купить Zoomlion и другие бренды в
+          Вилочные погрузчики, мини-погрузчики и подъёмники — купить Zoomlion и другие бренды в
           России
         </title>
         <meta
           name="description"
-          content="Продажа вилочных погрузчиков и подъёмников. Дизельные и электрические модели Zoomlion и других брендов. Гарантия, доставка по всей России. Бесплатная консультация и подбор техники."
+          content="Продажа вилочных погрузчиков, мини-погрузчкиов и подъёмников. Дизельные и электрические модели Zoomlion и других брендов. Гарантия, доставка по всей России. Бесплатная консультация и подбор техники."
         />
         <meta
           name="keywords"
-          content="вилочный погрузчик, купить вилочный погрузчик, дизельный вилочный погрузчик, электрический вилочный погрузчик, складская техника, подъемники, погрузчики Zoomlion, Zoomlion Trade, погрузчик цена, вилочный погрузчик Россия"
+          content="вилочный погрузчик, купить вилочный погрузчик, дизельный вилочный погрузчик, электрический вилочный погрузчик, мини-погрузчики, купить мини-погрузчик, подъемники, погрузчики Zoomlion (Зумлион), Zoomlion Trade, погрузчик цена, вилочный погрузчик Россия"
         />
 
         {/* ✅ Open Graph */}
         <meta
           property="og:title"
-          content="Вилочные погрузчики и подъёмники — Zoomlion и другие бренды"
+          content="Вилочные погрузчики, мини-погрузчики и подъёмники — Zoomlion и другие бренды"
         />
         <meta
           property="og:description"
@@ -239,7 +242,7 @@ const isNoIndexPage =
               url: "https://zoomliontrade.ru",
               logo: "https://zoomliontrade.ru/favicon.png",
               description:
-                "Продажа вилочных погрузчиков Zoomlion и других брендов. Официальный дилер в России. Гарантия, доставка, сервис.",
+                "Подъемная техника Zoomlion и других брендов. Официальный дилер в России. Гарантия, доставка, сервис.",
               address: {
                 "@type": "PostalAddress",
                 addressCountry: "RU",
@@ -298,97 +301,85 @@ const isNoIndexPage =
 </header>
 
 
-     import Image from "next/image";
-
-{/* ===== HERO (оптимизированный) ===== */}
-<section
-  id="hero"
-  className="relative flex flex-col items-center justify-center text-center text-white overflow-hidden min-h-screen"
->
-  {/* Фото заднего плана с параллаксом.
-     Используем Image + fill, родитель position: absolute inset-0 */}
-  <div
-    className="absolute inset-0 will-change-transform"
-    style={{
-      transform: `translateY(${offsetY * 0.2}px) scale(1.05)`,
-      transition: "transform 0.3s ease-out",
-    }}
-  >
-    <div className="relative w-full h-full">
-      <Image
-        src="/zoomlion-hero.jpg"
-        alt="Zoomlion Hero"
-        fill
-        priority // важное изображение для LCP
-        sizes="100vw"
-        style={{ objectFit: "cover", objectPosition: "center" }}
-      />
-    </div>
-
-    {/* затемнение поверх картинки */}
-    <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/60 pointer-events-none" />
-  </div>
-
-  {/* Текст */}
-  <div className="relative z-10 max-w-3xl mx-auto px-6">
-    <h1 className="text-3xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-lime-400 to-emerald-300 drop-shadow-[0_4px_15px_rgba(0,0,0,0.6)]">
-      Складская техника <span className="text-white">Zoomlion</span>
-    </h1>
-
-    <p className="text-lg md:text-xl text-gray-200 mb-10 font-medium drop-shadow-lg">
-      Официальный дилер в России. Надёжность, производительность и сервис.
-    </p>
-
-    <a
-      href="#contacts"
-      className="inline-block bg-lime-400 text-gray-900 px-8 md:px-10 py-3 rounded-full font-semibold hover:bg-lime-300 shadow-lg hover:shadow-lime-300/40 transition-all duration-300 transform hover:-translate-y-1"
-    >
-      Получить консультацию
-    </a>
-  </div>
-
-  <div className="absolute bottom-10 animate-bounce text-lime-400 text-2xl opacity-80">↓</div>
-</section>
+          {/* ===== HERO ===== */}
+      <HeroSwiper />
 
 
-      {/* ===== ТЕХНИКА В НАЛИЧИИ ===== */}
+{/* ===== ТЕХНИКА В НАЛИЧИИ ===== */}
 <section id="stock" className="py-20 bg-white">
-  <div className="max-w-6xl mx-auto px-6">
-    <h2 className="text-3xl font-semibold text-center text-stone-900 mb-12">
+  <div className="max-w-7xl mx-auto px-6">
+    <h2 className="text-3xl md:text-4xl font-bold text-center text-stone-900 mb-14">
       Техника в наличии
     </h2>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
 
-      {/* Карточка категории */}
-      <Link href="/catalog/forklifts" className="block p-8 bg-stone-50 rounded-2xl shadow hover:shadow-lg transition">
-        <h3 className="text-xl font-semibold mb-2">Вилочные погрузчики</h3>
-        <p className="text-stone-600">Техника для склада и производства</p>
-      </Link>
+      {/* === Компонент категории === */}
+      {[
+        {
+          title: "Вилочные погрузчики",
+          desc: "Техника для склада и производства",
+          link: "/catalog/forklifts",
+        },
+        {
+          title: "Телескопические погрузчики",
+          desc: "Грузоподъёмность до 4,5 тонн",
+          link: "/catalog/telehandlers",
+        },
+        {
+          title: "Ножничные подъёмники",
+          desc: "Высота подъёма до 16 м",
+          link: "/catalog/scissor-lifts",
+        },
+        {
+          title: "Коленчатые подъёмники",
+          desc: "Высотные работы",
+          link: "/catalog/articulated-lifts",
+        },
+        {
+          title: "Телескопические подъёмники",
+          desc: "Рабочая высота до 82 м",
+          link: "/catalog/telescopic-lifts",
+        },
+        {
+          title: "Мини-погрузчики",
+          desc: "Компактные и маневренные машины",
+          link: "/catalog/mini-loaders",
+        },
+      ].map((cat, index) => (
+        <Link
+          key={index}
+          href={cat.link}
+          className="group block p-8 bg-white border border-stone-200 rounded-2xl shadow-sm hover:shadow-xl hover:border-green-500 transition-all duration-300"
+        >
+          <h3 className="text-xl font-semibold mb-2 text-stone-900">
+            {cat.title}
+          </h3>
+          <p className="text-stone-600 mb-6">{cat.desc}</p>
 
-      <Link href="/catalog/telehandlers" className="block p-8 bg-stone-50 rounded-2xl shadow hover:shadow-lg transition">
-        <h3 className="text-xl font-semibold mb-2">Телескопические погрузчики</h3>
-        <p className="text-stone-600">Грузоподъёмность до 4 тонн</p>
-      </Link>
-
-      <Link href="/catalog/scissor-lifts" className="block p-8 bg-stone-50 rounded-2xl shadow hover:shadow-lg transition">
-        <h3 className="text-xl font-semibold mb-2">Ножничные подъёмники</h3>
-        <p className="text-stone-600">Высота подъёма до 16 м</p>
-      </Link>
-
-      <Link href="/catalog/articulated-lifts" className="block p-8 bg-stone-50 rounded-2xl shadow hover:shadow-lg transition">
-        <h3 className="text-xl font-semibold mb-2">Коленчатые подъёмники</h3>
-        <p className="text-stone-600">Высотные работы</p>
-      </Link>
-
-      <Link href="/catalog/telescopic-lifts" className="block p-8 bg-stone-50 rounded-2xl shadow hover:shadow-lg transition">
-        <h3 className="text-xl font-semibold mb-2">Телескопические подъёмники</h3>
-        <p className="text-stone-600">Рабочая высота до 20 м</p>
-      </Link>
-
+          <button className="mt-4 inline-flex items-center gap-2 px-5 py-3 bg-green-600 text-white rounded-xl font-medium shadow hover:bg-green-700 transition">
+            Смотреть технику
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.5 4.5l6 6-6 6M19.5 10.5H4.5"
+              />
+            </svg>
+          </button>
+        </Link>
+      ))}
     </div>
   </div>
 </section>
+
 
 
 {/* ===== SEO / ABOUT SECTION ===== */}
@@ -404,7 +395,7 @@ const isNoIndexPage =
         </h2>
 
         <p className="text-stone-700 text-lg leading-relaxed mb-4">
-          Поставляем <strong>дизельные</strong> и <strong>электрические вилочные погрузчики</strong>, 
+          Поставляем <strong>дизельные</strong> и <strong>электрические вилочные погрузчики</strong>, мини-погрузчики, 
           ножничные, телескопические и коленчатые подъёмники для любых задач. 
           В наличии техника грузоподъёмностью от 1 до 18 тонн.
         </p>
@@ -465,28 +456,7 @@ const isNoIndexPage =
       </div>
     </div>
 
-    {/* --- LIST OF EQUIPMENT TYPES --- */}
-    <div className="mt-16">
-      <h3 className="text-2xl font-bold mb-6 text-stone-900">Виды техники:</h3>
-      
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {[
-          "Дизельные вилочные погрузчики 1–10 т",
-          "Электрические погрузчики (в т.ч. литий-ионные)",
-          "Телескопические погрузчики 3–4 т",
-          "Ножничные подъёмники 6–12 м",
-          "Телескопические подъёмники до 18 м",
-          "Коленчатые подъёмники для высотных работ",
-        ].map((item, index) => (
-          <div
-            key={index}
-            className="bg-white p-5 rounded-xl shadow-sm ring-1 ring-stone-200 text-stone-700 hover:shadow-md transition"
-          >
-            {item}
-          </div>
-        ))}
-      </div>
-    </div>
+
   </div>
 </section>
 {/* ===== ANIMATED FAQ SECTION ===== */}
@@ -508,11 +478,11 @@ const isNoIndexPage =
         },
         {
           q: "Сколько стоит вилочный погрузчик?",
-          a: "Базовые дизельные модели начинаются от 1,3 млн ₽. Электрические — от 1,6 млн ₽. Цена зависит от высоты подъёма, комплектации и типа двигателя."
+          a: "Базовые дизельные модели начинаются от 950 000 ₽. Электрические — от 1,2 млн ₽. Цена зависит от высоты подъёма, комплектации и типа двигателя."
         },
         {
           q: "Какие бывают виды погрузчиков?",
-          a: "Дизельные, электрические, газ-бензиновые, телескопические, компактные складские модели и специализированные лифты."
+          a: "Дизельные, электрические, газ-бензиновые, бензиновые, телескопические, мини-погрузчики."
         },
         {
           q: "Можно ли доставить технику в регионы?",
@@ -584,7 +554,7 @@ const isNoIndexPage =
             acceptedAnswer: {
               "@type": "Answer",
               text:
-                "Дизельные модели стоят от 1,3 млн ₽, электрические — от 1,6 млн ₽."
+                "Дизельные модели стоят от 950 000 млн ₽, электрические — от 1,2 млн ₽."
             }
           },
           {
@@ -593,7 +563,7 @@ const isNoIndexPage =
             acceptedAnswer: {
               "@type": "Answer",
               text:
-                "Дизельные, электрические, газ-бензиновые, телескопические, складские компактные."
+                "Дизельные, электрические, газ-бензиновые, бензиновые, телескопические, мини-погрузчики."
             }
           },
           {
