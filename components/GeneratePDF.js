@@ -108,42 +108,42 @@ export default function GeneratePDF({ item }) {
       } catch {}
     }
 
-// === Таблица техники ===
-const tableX = 300;
-const tableW = pageWidth - tableX - 40;
+    // === Таблица техники ===
+    const tableX = 300;
+    const tableW = pageWidth - tableX - 40;
 
-doc.setFillColor(242, 242, 242);
-doc.roundedRect(tableX, y, tableW, 190, 6, 6, "F");
+    doc.setFillColor(242, 242, 242);
+    doc.roundedRect(tableX, y, tableW, 190, 6, 6, "F");
 
-doc.setFontSize(14);
+    doc.setFontSize(14);
 
-// ---- Название техники (перенос)
-const titleWrapped = doc.splitTextToSize(item.title, tableW - 20);
-doc.text(titleWrapped, tableX + 12, y + 20);
+    // ---- Название техники (перенос)
+    const titleWrapped = doc.splitTextToSize(item.title, tableW - 20);
+    doc.text(titleWrapped, tableX + 12, y + 20);
 
-doc.setFontSize(11);
+    doc.setFontSize(11);
 
-// ---- Производитель
-const producer = doc.splitTextToSize(`Производитель: Zoomlion`, tableW - 20);
-doc.text(producer, tableX + 12, y + 55);
+    // ---- Производитель
+    const producer = doc.splitTextToSize(`Производитель: Zoomlion`, tableW - 20);
+    doc.text(producer, tableX + 12, y + 55);
 
-// ---- Модель
-const model = doc.splitTextToSize(`Модель: ${item.title}`, tableW - 20);
-doc.text(model, tableX + 12, y + 75);
+    // ---- Модель
+    const model = doc.splitTextToSize(`Модель: ${item.title}`, tableW - 20);
+    doc.text(model, tableX + 12, y + 75);
 
-// ---- Срок поставки
-doc.text(`Срок поставки: Техника в наличии`, tableX + 12, y + 95);
+    // ---- Срок поставки
+    doc.text(`Срок поставки: Техника в наличии`, tableX + 12, y + 95);
 
-// ---- Описание
-doc.text("Описание:", tableX + 12, y + 110);
-const descLines = doc.splitTextToSize(item.desc || "", tableW - 20);
-doc.text(descLines, tableX + 12, y + 125);
+    // ---- Описание
+    doc.text("Описание:", tableX + 12, y + 110);
+    const descLines = doc.splitTextToSize(item.desc || "", tableW - 20);
+    doc.text(descLines, tableX + 12, y + 125);
 
-y += 220;;
+    y += 220;
 
     // === ИТОГО ===
     doc.setFontSize(18);
-    doc.setTextColor(0, 0, 0); // теперь ЧЁРНЫЙ
+    doc.setTextColor(0, 0, 0);
     doc.text(`ИТОГО: ${item.price}  (с НДС)`, 40, y);
 
     y += 25;
@@ -158,9 +158,22 @@ y += 220;;
     doc.setFontSize(10);
     doc.text(company.phone, 40, 820);
     doc.text(company.email, 150, 820);
-    doc.text("© Zoomlion Russia", pageWidth - 150, 820);
+    doc.text("© Zoomlion Trade", pageWidth - 150, 820);
 
-    doc.save(`Коммерческое_предложение_${item.title}.pdf`);
+    // ======= НОВЫЙ КОД ДЛЯ IOS =======
+    try {
+      const pdfBlob = doc.output("blob");
+      const link = document.createElement("a");
+      const safeTitle = (item.title || "Коммерческое_предложение").replace(/[^a-z0-9]/gi, "_").toLowerCase();
+      link.href = URL.createObjectURL(pdfBlob);
+      link.download = `${safeTitle}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (e) {
+      // fallback, если что-то пойдет не так
+      doc.save(`Коммерческое_предложение_${item.title}.pdf`);
+    }
   };
 
   return (
