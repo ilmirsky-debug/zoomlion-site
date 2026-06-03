@@ -51,6 +51,10 @@ const driveOptions = ["Дизель", "Бензин", "Газ-Бензин", "Э
 export default function CategoryPage() {
   const router = useRouter();
   const { category } = router.query;
+const currentCategory =
+  typeof category === "string"
+    ? category
+    : router.asPath?.split("/catalog/")[1]?.split("?")[0] || "";
 
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -64,7 +68,7 @@ export default function CategoryPage() {
   const [lightboxIndex, setLightboxIndex] = useState(0);
 const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const heroBg = heroBackgrounds[category] || "/hero/default.jpg";
+  const heroBg = heroBackgrounds[currentCategory] || "/hero/default.jpg";
 
   // ----------------------------------------------------
   // LOAD DATA
@@ -123,10 +127,7 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
   function nextImage() { setLightboxIndex((i) => (i === lightboxImages.length - 1 ? 0 : i + 1)); }
 
   const goToCategory = (slug) => router.push(`/catalog/${slug}`);
-const currentCategory =
-  typeof category === "string"
-    ? category
-    : router.asPath?.split("/catalog/")[1]?.split("?")[0] || "";
+
 
   // ===================================================================
   // RENDER
