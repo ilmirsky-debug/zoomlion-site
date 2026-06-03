@@ -2,49 +2,64 @@ import "../styles/globals.css";
 import Head from "next/head";
 import YandexMetrika from "../components/YandexMetrika";
 import GoogleAnalytics from "../components/GoogleAnalytics";
-import ModalForm from "../components/ModalForm";
+import dynamic from "next/dynamic";
+
+const ModalForm = dynamic(() => import("../components/ModalForm"), { ssr: false });
 
 export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        {/* --- Основное SEO --- */}
-        <title>Zoomlion Trade — Погрузочная техника Zoomlion — вилочные погрузчики, мини-погрузчики, подъемники в России</title>
+
+        {/* ========== ГЛАВНЫЙ TITLE (оптимизирован, < 580px) ========== */}
+        <title>
+  Погрузчики, мини-погрузчики и подъемники — продажа и поставка по России | Zoomlion (Зумлион)
+</title>
+
+        {/* ========== ГЛАВНОЕ ОПИСАНИЕ (одно, без дублей!) ========== */}
         <meta
-          name="description"
-          content="Официальный дилер Zoomlion в России. Вилочные погрузчики, подъёмники и мини-погрузчики с гарантией и доставкой по всей России."
-        />
+  name="description"
+  content="Продажа вилочных погрузчиков, мини-погрузчиков и подъёмников. Дизельные и электрические модели от ведущих производителей. Поставка по всей России. Официальный дилер Zoomlion (Зумлион)."
+/>
+
+        {/* ========== КЛЮЧЕВЫЕ СЛОВА — не критично, но пусть будут ========== */}
         <meta
           name="keywords"
-          content="Zoomlion, вилочные погрузчики, подъёмники, мини-погрузчики, дилер Zoomlion, купить Zoomlion, Zoomlion Trade"
+          content="Zoomlion, вилочные погрузчики, мини-погрузчики, подъёмники, складская техника, купить погрузчик, дилер Zoomlion (Зумлион)"
         />
 
-        {/* --- Favicon и тема --- */}
+        {/* ========== FAVICON / ТЕМА ========== */}
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/favicon.png" />
         <meta name="theme-color" content="#84cc16" />
 
-        {/* --- Open Graph --- */}
+        {/* ========== OPEN GRAPH (исправлено + сокращено) ========== */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Zoomlion Trade — Вилочные погрузчики, мини-погрузчики и подъёмники" />
+        <meta
+          property="og:title"
+          content="Zoomlion Trade — вилочные и мини-погрузчики, подъёмники"
+        />
         <meta
           property="og:description"
-          content="Официальный дилер Zoomlion в России. Погрузчики, мини-погрузчики и подъёмники с гарантией, доставкой и сервисом."
+          content="Погрузчики и подъёмники Zoomlion (Зумлион) в наличии. Доставка и сервис по всей России."
         />
         <meta property="og:url" content="https://zoomliontrade.ru" />
         <meta property="og:image" content="https://zoomliontrade.ru/og-image.png" />
         <meta property="og:locale" content="ru_RU" />
 
-        {/* --- Twitter / Telegram --- */}
+        {/* ========== TWITTER CARD ========== */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Zoomlion Trade — техника Zoomlion в России" />
+        <meta
+          name="twitter:title"
+          content="Zoomlion Trade — погрузчики и подъёмники Zoomlion (Зумлион)"
+        />
         <meta
           name="twitter:description"
-          content="Вилочные погрузчики, мини-погрузчики и подъёмники Zoomlion — доставка по всей России."
+          content="Официальный дилер. Погрузочная техника Zoomlion (Зумлион) в России."
         />
         <meta name="twitter:image" content="https://zoomliontrade.ru/og-image.png" />
 
-        {/* --- Структурированные данные (Schema.org) --- */}
+        {/* ========== STRUCTURED DATA (оставил, всё корректно) ========== */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -56,7 +71,7 @@ export default function App({ Component, pageProps }) {
               url: "https://zoomliontrade.ru",
               logo: "https://zoomliontrade.ru/favicon.png",
               description:
-                "Официальный дилер Zoomlion в России. Погрузчики, подъёмники, и мини-погрузчики с гарантией и доставкой.",
+                "Официальный дилер Zoomlion (Зумлион) в России. Погрузчики, подъёмники и мини-погрузчики с гарантией и доставкой.",
               address: {
                 "@type": "PostalAddress",
                 addressCountry: "RU",
@@ -74,16 +89,17 @@ export default function App({ Component, pageProps }) {
             }),
           }}
         />
+
       </Head>
 
-      {/* --- Метрики и аналитика --- */}
+      {/* Метрики */}
       <YandexMetrika />
       <GoogleAnalytics />
 
-      {/* --- Контент страниц --- */}
+      {/* Контент */}
       <Component {...pageProps} />
 
-      {/* --- Глобальное модальное окно "Запросить предложение" --- */}
+      {/* Модальное окно */}
       <ModalForm />
     </>
   );

@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import BackHome from "@/components/BackHome";
+import BackHome from "../../components/BackHome.js";
+
 
 export default function ProductPage() {
   const router = useRouter();

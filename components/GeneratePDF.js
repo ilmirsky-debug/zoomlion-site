@@ -162,18 +162,18 @@ export default function GeneratePDF({ item }) {
 
     // ======= НОВЫЙ КОД ДЛЯ IOS =======
     try {
-      const pdfBlob = doc.output("blob");
-      const link = document.createElement("a");
-      const safeTitle = (item.title || "Коммерческое_предложение").replace(/[^a-z0-9]/gi, "_").toLowerCase();
-      link.href = URL.createObjectURL(pdfBlob);
-      link.download = `${safeTitle}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (e) {
-      // fallback, если что-то пойдет не так
-      doc.save(`Коммерческое_предложение_${item.title}.pdf`);
-    }
+  const pdfBlob = doc.output("blob");
+  const link = document.createElement("a");
+  const safeTitle = (item.title || "Коммерческое_предложение").replace(/[^a-z0-9]/gi, "_").toLowerCase();
+  link.href = URL.createObjectURL(pdfBlob);
+  link.download = `${safeTitle}.pdf`;
+  document.body.appendChild(link);
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(link.href), 100); // небольшая задержка
+  document.body.removeChild(link);
+} catch (e) {
+  doc.save(`Коммерческое_предложение_${item.title}.pdf`);
+}
   };
 
   return (

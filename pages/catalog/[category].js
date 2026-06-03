@@ -130,8 +130,49 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <>
       <Head>
-        <title>{getCategoryName(category)}</title>
-      </Head>
+  {/* === SEO TITLE === */}
+  <title>
+    {getCategoryName(category)} — цены, характеристики, купить в России | Погрузчики и подъемники
+  </title>
+
+  {/* === META DESCRIPTION === */}
+  <meta
+    name="description"
+    content={`Купить ${getCategoryName(category).toLowerCase()} в России. В наличии ${
+      filteredItems.length
+    } моделей. ${getCategoryName(category)} — характеристики, цены, доставка. Zoomlion (Зумлион) и другие бренды.`}
+  />
+
+  <meta name="robots" content="index, follow" />
+
+  {/* === Open Graph === */}
+  <meta
+    property="og:title"
+    content={`${getCategoryName(category)} — купить в России | Цены и характеристики`}
+  />
+  <meta
+    property="og:description"
+    content={`Продажа техники категории: ${getCategoryName(
+      category
+    )}. Доступно моделей: ${
+      filteredItems.length
+    }. Цены, фото, характеристики. Доставка по РФ.`}
+  />
+  <meta property="og:image" content="https://zoomliontrade.ru/og-image.png" />
+  <meta
+    property="og:url"
+    content={`https://zoomliontrade.ru/catalog/${category}`}
+  />
+  <meta property="og:type" content="website" />
+
+  {/* === CANONICAL — важен для устранения дублей === */}
+  <link
+    rel="canonical"
+    href={`https://zoomliontrade.ru/catalog/${category}`}
+  />
+</Head>
+
+
 
       <div className="max-w-7xl mx-auto p-6 min-h-screen grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)] gap-10">
 
@@ -388,8 +429,15 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
 
                     {/* Название / описание */}
                     <h2 className="text-xl font-semibold mb-2 line-clamp-2 break-words">
-                      {item.title}
-                    </h2>
+  <a
+    href={`/product/${item.slug}`}
+    className="hover:underline"
+  >
+    {item.title}
+  </a>
+</h2>
+
+
                     <p className="text-stone-600 text-sm mb-4 line-clamp-3">
                       {item.desc}
                     </p>
@@ -397,13 +445,13 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
                     {/* Характеристики */}
                     <div className="text-sm text-stone-700 space-y-1 mb-4">
                       {item.capacity && (
-                        <p><span className="font-semibold">Грузоподъёмность:</span> {item.capacity}</p>
+                        <h3 className="font-semibold text-sm">Грузоподъёмность: {item.capacity}</h3>
                       )}
                       {item.liftHeight && (
-                        <p><span className="font-semibold">Высота подъёма:</span> {item.liftHeight}</p>
+                        <h3 className="font-semibold text-sm">Высота подъёма: {item.liftHeight}</h3>
                       )}
                       {item.drive && (
-                        <p><span className="font-semibold">Тип привода:</span> {item.drive}</p>
+                        <h3 className="font-semibold text-sm">Тип привода: {item.drive}</h3>
                       )}
                     </div>
 
@@ -433,7 +481,7 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
 
           {/* SEO TEXT — ВСЕГДА ПОД КАРТОЧКАМИ */}
           <section className="p-7 bg-white border rounded-2xl shadow-sm">
-            <h2 className="text-2xl font-bold mb-4">О категории</h2>
+            <h2 className="text-2xl font-bold mb-4"> О категории</h2>
             <p className="leading-relaxed whitespace-pre-line">{seoText}</p>
           </section>
 </div>

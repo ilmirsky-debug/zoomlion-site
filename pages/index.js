@@ -5,13 +5,25 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import SupportModal from "../components/SupportModal"; // добавить
 import Link from "next/link";
-import HeroSwiper from "../components/HeroSwiperClient";
+import dynamic from "next/dynamic";
+
+const HeroSwiperClient = dynamic(
+  () => import("../components/HeroSwiperClient"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[95vh] min-h-[650px] bg-stone-200 animate-pulse" />
+    ),
+  }
+);
+
 
 
 
 
 export default function Home() {
   const [stockData, setStockData] = useState([]);
+const [activeStockCategory, setActiveStockCategory] = useState("all");
   const [scrolled, setScrolled] = useState(false);
   const [heroDarkness, setHeroDarkness] = useState(0);
   const [modalImageIndex, setModalImageIndex] = useState(null);
@@ -183,6 +195,22 @@ const router = useRouter();
 const isNoIndexPage =
   router.pathname.startsWith("/admin") ||
   router.pathname.startsWith("/confidential");
+const stockCategories = [
+  { slug: "all", title: "Все" },
+  { slug: "forklifts", title: "Вилочные погрузчики" },
+  { slug: "mini-loaders", title: "Мини-погрузчики" },
+  { slug: "telehandlers", title: "Телескопические погрузчики" },
+  { slug: "scissor-lifts", title: "Ножничные подъёмники" },
+  { slug: "articulated-lifts", title: "Коленчатые подъёмники" },
+  { slug: "telescopic-lifts", title: "Телескопические подъёмники" },
+];
+
+const visibleStock =
+  activeStockCategory === "all"
+    ? stockData.slice(0, 9)
+    : stockData
+        .filter((item) => item.category === activeStockCategory)
+        .slice(0, 9);
  
  return (
     <div className="min-h-screen bg-white text-gray-900">
@@ -252,7 +280,7 @@ const isNoIndexPage =
               },
               contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "+7 (937) 584-45-55",
+                telephone: "+7 (919) 622-85-55",
                 contactType: "sales",
                 areaServed: "RU",
                 availableLanguage: ["Russian"],
@@ -302,7 +330,120 @@ const isNoIndexPage =
 
 
           {/* ===== HERO ===== */}
-      <HeroSwiper />
+      <HeroSwiperClient />
+{/* ===== ПОПУЛЯРНАЯ ТЕХНИКА В НАЛИЧИИ ===== */}
+<section id="popular-stock" className="py-20 bg-white">
+  <div className="max-w-7xl mx-auto px-6">
+    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+      <div>
+        <p className="text-lime-600 font-semibold mb-2">В наличии на складе</p>
+        <h2 className="text-3xl md:text-4xl font-bold text-stone-900">
+          Популярная техника
+        </h2>
+      </div>
+
+      <Link
+        href="/catalog/forklifts"
+        className="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-black text-white font-semibold hover:bg-stone-800 transition"
+      >
+        Смотреть весь каталог
+      </Link>
+    </div>
+
+<div className="flex flex-wrap gap-3 mb-10">
+  {stockCategories.map((cat) => (
+    <button
+      key={cat.slug}
+      onClick={() => setActiveStockCategory(cat.slug)}
+      className={`px-5 py-3 rounded-xl font-semibold border transition ${
+        activeStockCategory === cat.slug
+          ? "bg-lime-500 border-lime-500 text-black"
+          : "bg-white border-stone-300 text-stone-700 hover:border-lime-500"
+      }`}
+    >
+      {cat.title}
+    </button>
+  ))}
+</div>    
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {visibleStock.map((item) => {
+        const image =
+  item.images && item.images.length > 0 && item.images[0]
+    ? item.images[0]
+    : item.img || "/stock/noimage.jpg";
+
+        return (
+          <article
+            key={item.slug}
+            className="group bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition"
+          >
+            <div className="relative h-64 bg-stone-100 overflow-hidden">
+  <img
+    src={image}
+    alt={item.title}
+    className="w-full h-full object-contain p-3 group-hover:scale-105 transition duration-300"
+    loading="lazy"
+    onError={(e) => {
+      e.currentTarget.src = "/stock/noimage.jpg";
+    }}
+  />
+</div>
+
+            <div className="p-5">
+              <h3 className="text-lg font-bold text-stone-900 mb-2 line-clamp-2">
+                {item.title}
+              </h3>
+
+              <p className="text-stone-600 text-sm mb-4 line-clamp-2">
+                {item.desc}
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-4 text-sm">
+                {item.capacity && (
+                  <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700">
+                    Г/п: {item.capacity}
+                  </span>
+                )}
+
+                {item.liftHeight && (
+                  <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700">
+                    Высота: {item.liftHeight}
+                  </span>
+                )}
+
+                {item.drive && (
+                  <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700">
+                    {item.drive}
+                  </span>
+                )}
+              </div>
+
+              <p className="text-xl font-bold text-stone-900 mb-5">
+                {item.price}
+              </p>
+
+              <div className="grid grid-cols-1 gap-3">
+                <button
+                  onClick={() => window.openForm && window.openForm(item.title)}
+                  className="w-full px-4 py-3 bg-lime-500 text-black rounded-xl font-semibold hover:bg-lime-400 transition"
+                >
+                  Получить предложение
+                </button>
+
+                <Link
+                  href={`/catalog/${item.category}`}
+                  className="w-full px-4 py-3 text-center border border-stone-300 rounded-xl font-semibold hover:bg-stone-50 transition"
+                >
+                  В раздел категории
+                </Link>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>
 
 
 {/* ===== ТЕХНИКА В НАЛИЧИИ ===== */}
