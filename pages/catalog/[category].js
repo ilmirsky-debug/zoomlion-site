@@ -48,13 +48,12 @@ const driveOptions = ["Дизель", "Бензин", "Газ-Бензин", "Э
 // ===================================================================
 // COMPONENT
 // ===================================================================
-export default function CategoryPage() {
+export default function CategoryPage({ initialCategory }) {
   const router = useRouter();
   const { category } = router.query;
-const currentCategory =
-  typeof category === "string"
-    ? category
-    : router.asPath?.split("/catalog/")[1]?.split("?")[0] || "";
+
+  const currentCategory =
+    initialCategory || (typeof category === "string" ? category : "");
 
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -596,4 +595,12 @@ function getCategorySeoDescription(slug, count = 0) {
 
   return descriptions[slug] ||
     "Каталог техники в наличии: цены, фото, характеристики и доставка по России.";
+}
+// ----------------------------------------------------
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      initialCategory: context.params.category,
+    },
+  };
 }
