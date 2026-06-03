@@ -123,6 +123,10 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
   function nextImage() { setLightboxIndex((i) => (i === lightboxImages.length - 1 ? 0 : i + 1)); }
 
   const goToCategory = (slug) => router.push(`/catalog/${slug}`);
+const currentCategory =
+  typeof category === "string"
+    ? category
+    : router.asPath?.split("/catalog/")[1]?.split("?")[0] || "";
 
   // ===================================================================
   // RENDER
@@ -130,30 +134,30 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <>
       <Head>
-  <title>{getCategorySeoTitle(category)}</title>
+  <title>{getCategorySeoTitle(currentCategory)}</title>
 
   <meta
     name="description"
-    content={getCategorySeoDescription(category, filteredItems.length)}
+    content={getCategorySeoDescription(currentCategory, filteredItems.length)}
   />
 
   <meta name="robots" content="index, follow" />
 
-  <meta property="og:title" content={getCategorySeoTitle(category)} />
+  <meta property="og:title" content={getCategorySeoTitle(currentCategory)} />
   <meta
     property="og:description"
-    content={getCategorySeoDescription(category, filteredItems.length)}
+    content={getCategorySeoDescription(currentCategory, filteredItems.length)}
   />
   <meta property="og:image" content="https://zoomliontrade.ru/og-image.png" />
   <meta
     property="og:url"
-    content={`https://zoomliontrade.ru/catalog/${category}`}
+    content={`https://zoomliontrade.ru/catalog/${currentCategory}`}
   />
   <meta property="og:type" content="website" />
 
   <link
     rel="canonical"
-    href={`https://zoomliontrade.ru/catalog/${category}`}
+    href={`https://zoomliontrade.ru/catalog/${currentCategory}`}
   />
 </Head>
 
