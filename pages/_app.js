@@ -81,7 +81,7 @@ export default function App({ Component, pageProps }) {
               },
               contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "+7 (937) 584-45-55",
+                telephone: "+7 (919) 622-85-55",
                 contactType: "sales",
                 areaServed: "RU",
                 availableLanguage: ["Russian"],

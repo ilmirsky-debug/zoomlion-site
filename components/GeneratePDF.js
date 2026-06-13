@@ -17,7 +17,7 @@ export default function GeneratePDF({ item }) {
     address:
       "423800, РТ, г. Набережные Челны, Промкомзона 2, Производственный проезд, 3",
     phone: "+7 (919) 622-85-55",
-    email: "info@zoomliontrade.ru",
+    email: "zoomliontrade@yandex.ru",
     inn: "1650365378",
     kpp: "165001001",
     bank: 'ФИЛИАЛ "НИЖЕГОРОДСКИЙ" АО "АЛЬФА-БАНК"',

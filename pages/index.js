@@ -23,6 +23,7 @@ const HeroSwiperClient = dynamic(
 
 export default function Home() {
   const [stockData, setStockData] = useState([]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 const [activeStockCategory, setActiveStockCategory] = useState("all");
   const [scrolled, setScrolled] = useState(false);
   const [heroDarkness, setHeroDarkness] = useState(0);
@@ -308,47 +309,115 @@ const visibleStock =
 
 
 
-      {/* ===== ШАПКА ===== */}
-      <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-sm">
-  <div className="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-8 py-3">
-    {/* ✅ Логотип с фиксированной шириной */}
+   {/* ===== ШАПКА ===== */}
+<header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-200">
+  <div className="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-8 py-2,5">
+
     <img
       src="/logo.png"
       alt="Zoomlion"
-      className="h-8 md:h-10 w-auto object-contain max-w-[180px] md:max-w-[200px]"
+      className="h-8 md:h-9 w-auto object-contain max-w-[180px] md:max-w-[220px]"
     />
 
-    {/* ✅ Навигация адаптируется под ширину */}
-    <nav className="hidden sm:flex items-center gap-5 text-gray-800 font-medium text-sm md:text-base">
+    <nav className="hidden lg:flex items-center gap-8 text-gray-800 font-medium">
       <a href="#products" className="hover:text-lime-600 transition">Продукция</a>
       <a href="#features" className="hover:text-lime-600 transition">Преимущества</a>
       <a href="#service" className="hover:text-lime-600 transition">Сервис</a>
       <a href="#contacts" className="hover:text-lime-600 transition">Контакты</a>
     </nav>
+
+    <div className="hidden md:flex items-center gap-5">
+      <a
+        href="tel:+79196224555"
+        className="text-gray-900 font-semibold whitespace-nowrap hover:text-lime-600 transition"
+      >
+        +7 919 622-45-55
+      </a>
+
+      <button
+        onClick={() => window.openForm && window.openForm("Заказать обратный звонок")}
+        className="bg-lime-400 hover:bg-lime-300 text-gray-900 font-semibold px-5 py-2 rounded-full shadow-md transition-all hover:-translate-y-1"
+      >
+        Заказать звонок
+      </button>
+    </div>
+
+    <button
+      onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+      className="lg:hidden text-3xl font-bold text-gray-900"
+      aria-label="Открыть меню"
+    >
+      ☰
+    </button>
   </div>
+
+  {mobileMenuOpen && (
+  <div className="lg:hidden fixed top-[64px] left-0 right-0 z-[9999] bg-white shadow-2xl border-t border-gray-200">
+    <div className="px-6 py-6 flex flex-col gap-5 text-gray-900 text-lg font-semibold">
+      <a onClick={() => setMobileMenuOpen(false)} href="#products">
+        Продукция
+      </a>
+
+      <a onClick={() => setMobileMenuOpen(false)} href="#features">
+        Преимущества
+      </a>
+
+      <a onClick={() => setMobileMenuOpen(false)} href="#service">
+        Сервис
+      </a>
+
+      <a onClick={() => setMobileMenuOpen(false)} href="#contacts">
+        Контакты
+      </a>
+
+      <a href="tel:+79196224555" className="text-lime-600 font-bold">
+        +7 919 622-45-55
+      </a>
+
+      <button
+        onClick={() => {
+          setMobileMenuOpen(false);
+          window.openForm && window.openForm("Заказать обратный звонок");
+        }}
+        className="bg-lime-400 text-gray-900 px-5 py-3 rounded-full font-semibold shadow-md"
+      >
+        Заказать звонок
+      </button>
+    </div>
+  </div>
+)}
 </header>
 
 
           {/* ===== HERO ===== */}
       <HeroSwiperClient />
 {/* ===== ПОПУЛЯРНАЯ ТЕХНИКА В НАЛИЧИИ ===== */}
-<section id="popular-stock" className="py-20 bg-white">
+<section id="popular-stock" className="pt-6 pb-20 bg-white">
   <div className="max-w-7xl mx-auto px-6">
-    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
-      <div>
-        <p className="text-lime-600 font-semibold mb-2">В наличии на складе</p>
-        <h2 className="text-3xl md:text-4xl font-bold text-stone-900">
-          Популярная техника
-        </h2>
-      </div>
+    <div className="mb-12">
+  <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8">
+    <div className="max-w-4xl">
+      <p className="text-lime-600 font-semibold mb-2 uppercase tracking-wide">
+        В наличии на складе
+      </p>
 
-      <Link
-        href="/catalog/forklifts"
-        className="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-black text-white font-semibold hover:bg-stone-800 transition"
-      >
-        Смотреть весь каталог
-      </Link>
+      <h2 className="text-3xl md:text-4xl font-extrabold text-stone-900 leading-tight">
+        Техника для склада, строительства и высотных работ
+      </h2>
+
+      <p className="mt-4 text-stone-600 text-base md:text-lg max-w-2xl">
+        Вилочные погрузчики, мини-погрузчики, ножничные, коленчатые и телескопические подъёмники Zoomlion и других брендов.
+      </p>
     </div>
+
+    <Link
+      href="/catalog/forklifts"
+      className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-black text-white font-semibold hover:bg-stone-800 transition shadow-lg"
+    >
+      Смотреть весь каталог →
+    </Link>
+  </div>
+</div>
 
 <div className="flex flex-wrap gap-3 mb-10">
   {stockCategories.map((cat) => (
@@ -375,13 +444,13 @@ const visibleStock =
         return (
           <article
             key={item.slug}
-            className="group bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition"
+            className="group bg-white border border-stone-200 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
           >
-            <div className="relative h-64 bg-stone-100 overflow-hidden">
+            <div className="relative h-80 bg-gradient-to-br from-stone-50 via-white to-stone-100 overflow-hidden">
   <img
     src={image}
     alt={item.title}
-    className="w-full h-full object-contain p-3 group-hover:scale-105 transition duration-300"
+    className="w-full h-full object-contain p-5 group-hover:scale-105 transition duration-500"
     loading="lazy"
     onError={(e) => {
       e.currentTarget.src = "/stock/noimage.jpg";
@@ -389,14 +458,31 @@ const visibleStock =
   />
 </div>
 
-            <div className="p-5">
-              <h3 className="text-lg font-bold text-stone-900 mb-2 line-clamp-2">
-                {item.title}
-              </h3>
+<div className="p-5">
 
-              <p className="text-stone-600 text-sm mb-4 line-clamp-2">
-                {item.desc}
-              </p>
+  <div className="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-lime-100 text-lime-700 text-sm font-semibold">
+    ● В наличии
+  </div>
+
+  <h3 className="text-xl font-extrabold text-stone-900 mb-3 line-clamp-2">
+    {item.title}
+  </h3>
+
+  <div className="flex items-center justify-between mb-6">
+  <div>
+    <p className="text-sm text-stone-500 mb-1">
+      Цена
+    </p>
+
+    <p className="text-2xl font-extrabold text-stone-900">
+      {item.price}
+    </p>
+  </div>
+
+  <div className="text-lime-600 text-sm font-semibold">
+    ✓ В наличии
+  </div>
+</div>
 
               <div className="flex flex-wrap gap-2 mb-4 text-sm">
                 {item.capacity && (
@@ -422,21 +508,23 @@ const visibleStock =
                 {item.price}
               </p>
 
-              <div className="grid grid-cols-1 gap-3">
-                <button
-                  onClick={() => window.openForm && window.openForm(item.title)}
-                  className="w-full px-4 py-3 bg-lime-500 text-black rounded-xl font-semibold hover:bg-lime-400 transition"
-                >
-                  Получить предложение
-                </button>
+<div className="grid grid-cols-2 gap-3">
 
-                <Link
-                  href={`/catalog/${item.category}`}
-                  className="w-full px-4 py-3 text-center border border-stone-300 rounded-xl font-semibold hover:bg-stone-50 transition"
-                >
-                  В раздел категории
-                </Link>
-              </div>
+  <button
+    onClick={() => window.openForm && window.openForm(item.title)}
+    className="px-4 py-3 bg-lime-500 text-black rounded-2xl font-bold hover:bg-lime-400 transition-all hover:-translate-y-1"
+  >
+    КП
+  </button>
+
+  <Link
+    href={`/product/${item.slug}`}
+    className="px-4 py-3 text-center bg-stone-900 text-white rounded-2xl font-bold hover:bg-stone-800 transition-all hover:-translate-y-1"
+  >
+    Подробнее
+  </Link>
+
+</div>
             </div>
           </article>
         );
@@ -444,7 +532,77 @@ const visibleStock =
     </div>
   </div>
 </section>
+{/* ===== ПОЧЕМУ ВЫБИРАЮТ НАС ===== */}
+<section
+  id="features"
+  className="relative bg-gradient-to-br from-stone-950 via-black to-stone-900 text-white py-16 overflow-hidden"
+>
+  <div className="absolute -top-24 -left-24 w-72 h-72 bg-lime-400/10 rounded-full blur-3xl" />
+<div className="absolute bottom-0 right-0 w-96 h-96 bg-lime-400/10 rounded-full blur-3xl" />
+  <div className="relative max-w-7xl mx-auto px-6">
+    <p className="text-lime-400 font-semibold mb-3 uppercase tracking-wide">
+      Наши преимущества
+    </p>
 
+    <h2 className="text-3xl md:text-4xl font-extrabold mb-8">
+      Почему выбирают нас
+    </h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+      <div className="relative rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm overflow-hidden hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 before:absolute before:inset-0 before:bg-lime-400/0 before:blur-2xl before:transition before:duration-300 hover:before:bg-lime-400/10">
+        <div className="mb-4">
+  <svg className="relative z-10 w-10 h-10 text-lime-400" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round"
+      d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.8 6.7 19.1l1-5.8-4.2-4.1 5.9-.9L12 3z" />
+  </svg>
+</div>
+        <h3 className="relative z-10 text-lg font-bold mb-2">Официальный дилер</h3>
+        <p className="relative z-10 text-stone-400 text-sm leading-6">
+          Поставляем технику Zoomlion и других брендов с гарантией и документами.
+        </p>
+      </div>
+
+      <div className="relative rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm overflow-hidden hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 before:absolute before:inset-0 before:bg-lime-400/0 before:blur-2xl before:transition before:duration-300 hover:before:bg-lime-400/10">
+        <div className="mb-4">
+  <svg className="relative z-10 w-10 h-10 text-lime-400" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round"
+      d="M14.7 6.3a5 5 0 01-6.4 6.4L3 18l3 3 5.3-5.3a5 5 0 006.4-6.4l-3 3-2-2 3-3z" />
+  </svg>
+</div>
+        <h3 className="relative z-10 text-lg font-bold mb-2">Сервис и запчасти</h3>
+        <p className="relative z-10 text-stone-400 text-sm leading-6">
+          Помогаем с обслуживанием, подбором расходников и технической поддержкой.
+        </p>
+      </div>
+
+      <div className="relative rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm overflow-hidden hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 before:absolute before:inset-0 before:bg-lime-400/0 before:blur-2xl before:transition before:duration-300 hover:before:bg-lime-400/10">
+        <div className="mb-4">
+  <svg className="relative z-10 w-10 h-10 text-lime-400" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round"
+      d="M3 7h12v8H3V7zm12 3h3l3 3v2h-6v-5zM7 19a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z"/>
+  </svg>
+</div>
+        <h3 className="relative z-10 text-lg font-bold mb-2">Доставка по России</h3>
+        <p className="relative z-10 text-stone-400 text-sm leading-6">
+          Организуем доставку техники до склада, строительной площадки или производства.
+        </p>
+      </div>
+
+      <div className="relative rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm overflow-hidden hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 before:absolute before:inset-0 before:bg-lime-400/0 before:blur-2xl before:transition before:duration-300 hover:before:bg-lime-400/10">
+        <div className="mb-4">
+  <svg className="relative z-10 w-10 h-10 text-lime-400" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round"
+      d="M9 12l2 2 4-4m6-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+  </svg>
+</div>
+        <h3 className="text-lg font-bold mb-2">Подбор под задачу</h3>
+        <p className="text-stone-400 text-sm leading-6">
+          Подберём модель под высоту подъёма, грузоподъёмность, тип работ и бюджет.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
 {/* ===== ТЕХНИКА В НАЛИЧИИ ===== */}
 <section id="stock" className="py-20 bg-white">
@@ -725,7 +883,6 @@ const visibleStock =
 
 {/* ===== НАША ПРОДУКЦИЯ ===== */} <section id="products" className="bg-gray-50 py-20"> <h2 className="text-3xl font-semibold text-center mb-10"> Наша продукция </h2> <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6"> {products.map((p, i) => ( <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1, duration: 0.6 }} viewport={{ once: true }} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow ring-1 ring-gray-200" > <div className="w-full h-56 overflow-hidden"> <img src={p.img} alt={p.title} className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300" loading="lazy" onClick={() => setModalImageIndex(i)} /> </div> <div className="p-6 text-center"> <h3 className="text-lg font-semibold mb-2">{p.title}</h3> <p className="text-gray-600 text-sm mb-4">{p.desc}</p> <button onClick={(e) => { e.preventDefault(); console.log("Кнопка нажата!"); setSelectedProduct(p.title); setShowForm(true); }} className="mt-4 inline-block text-sm font-medium text-white bg-black px-4 py-2 rounded-md hover:bg-stone-800 transition" > Запросить предложение </button> </div> </motion.div> ))} </div> </section>
 
-{/* ===== ПРЕИМУЩЕСТВА ===== */} <section id="features" className="py-20 bg-white"> <h2 className="text-3xl font-semibold text-center mb-12"> Почему выбирают Zoomlion </h2> <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6 text-center"> {[ { icon: "⚙️", title: "Надёжность", desc: "Каждая единица техники проходит строгие испытания.", }, { icon: "🚀", title: "Производительность", desc: "Оптимальная мощность и эффективность в любых условиях.", }, { icon: "💚", title: "Экологичность", desc: "Низкие выбросы и современные технологии.", }, { icon: "🧰", title: "Сервис", desc: "Сеть обслуживания и запасных частей по всей России.", }, ].map((f, i) => ( <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.15, duration: 0.6 }} viewport={{ once: true }} className="p-6 rounded-2xl ring-1 ring-gray-200 shadow-sm hover:shadow-lg transition" > <div className="text-5xl mb-4">{f.icon}</div> <h3 className="font-semibold text-lg mb-2">{f.title}</h3> <p className="text-gray-600 text-sm">{f.desc}</p> </motion.div> ))} </div> </section>
 
 {/* ===== СЕРВИС И ПОДДЕРЖКА ===== */}
 <section id="support" className="py-20 bg-stone-50">
@@ -801,8 +958,8 @@ const visibleStock =
       {/* ===== ФУТЕР ===== */}
       <footer id="contacts" className="bg-gray-900 text-white py-16 text-center">
         <h3 className="text-2xl font-semibold mb-4">Свяжитесь с нами</h3>
-        <p className="text-gray-400 mb-6">Телефон: <a href="tel:+79375844555">+7 (937) 584-45-55</a></p>
-        <p className="text-gray-400 mb-6">Email: <a href="mailto:ilmir.sky@yandex.ru" className="underline">ilmir.sky@yandex.ru</a></p>
+        <p className="text-gray-400 mb-6">Телефон: <a href="tel:+79196228555">+7 (919) 622-85-55</a></p>
+        <p className="text-gray-400 mb-6">Email: <a href="mailto:zoomliontrade@yandex.ru" className="underline">zoomliontrade@yandex.ru</a></p>
         <p className="text-gray-500 text-sm">© 2025 Zoomlion Pro. Все права защищены.</p>
       </footer>
 

@@ -11,23 +11,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="/" aria-label="Главная страница Zoomlion">
-                    <img src="images/logo.jpg" alt="Zoomlion Logo" class="logo">
-                </a>
-                <nav>
-                    <ul>
-                        <li><a href="#products">Продукция</a></li>
-                        <li><a href="#features">Преимущества</a></li>
-                        <li><a href="#contacts">Контакты</a></li>
-                    </ul>
-                </nav>
-                <a href="tel:+79375844555" class="btn">+7 (937) 584-45-55</a>
-            </div>
-        </div>
-    </header>
+    <header className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-stone-200">
+  <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-6">
+    
+    {/* Логотип */}
+    <a href="/" className="text-4xl md:text-5xl font-extrabold tracking-wide text-lime-500">
+      ZOOMLION
+    </a>
+
+    {/* Меню */}
+    <nav className="hidden lg:flex items-center gap-8 text-stone-800 font-medium">
+      <a href="#products" className="hover:text-lime-600 transition">Продукция</a>
+      <a href="#advantages" className="hover:text-lime-600 transition">Преимущества</a>
+      <a href="#service" className="hover:text-lime-600 transition">Сервис</a>
+      <a href="#contacts" className="hover:text-lime-600 transition">Контакты</a>
+    </nav>
+
+    {/* Телефон и кнопка */}
+    <div className="hidden md:flex items-center gap-4">
+      <a
+        href="tel:+79196228555"
+        className="text-stone-900 font-semibold whitespace-nowrap hover:text-lime-600 transition"
+      >
+        +7 919 622-85-55
+      </a>
+
+      <button
+        onClick={() => window.openForm && window.openForm("Заказать обратный звонок")}
+        className="bg-lime-400 text-stone-900 px-5 py-2 rounded-full font-semibold shadow-md hover:bg-lime-300 transition"
+      >
+        Заказать звонок
+      </button>
+    </div>
+  </div>
+</header>
     <div class="hero-banner"></div>
     <section class="hero-content">
         <div class="container">
@@ -97,8 +114,8 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>Контакты</h4>
-                    <p><a href="tel:+79375844555">📞 +7 (937) 584-45-55</a></p>
-                    <p><a href="mailto:info@zoomlion-rus.ru">✉️ info@zoomlion-rus.ru</a></p>
+                    <p><a href="tel:+79196228555">📞 +7 (919) 622-85-55</a></p>
+                    <p><a href="mailto:zoomliontrade@yandex.ru">✉️ zoomliontrade@yandex.ru</a></p>
                     <p>🕒 Пн-Пт: 9:00-18:00</p>
                 </div>
                 <div class="footer-section">
