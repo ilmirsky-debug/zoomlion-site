@@ -320,11 +320,29 @@ const visibleStock =
     />
 
     <nav className="hidden lg:flex items-center gap-8 text-gray-800 font-medium">
-      <a href="#products" className="hover:text-lime-600 transition">Продукция</a>
-      <a href="#features" className="hover:text-lime-600 transition">Преимущества</a>
-      <a href="#service" className="hover:text-lime-600 transition">Сервис</a>
-      <a href="#contacts" className="hover:text-lime-600 transition">Контакты</a>
-    </nav>
+  <a href="#products" className="hover:text-lime-600 transition">
+    Продукция
+  </a>
+
+  <a href="#features" className="hover:text-lime-600 transition">
+    Преимущества
+  </a>
+
+  <a href="#service" className="hover:text-lime-600 transition">
+    Сервис
+  </a>
+
+  <Link
+    href="/blog"
+    className="hover:text-lime-600 transition"
+  >
+    Блог
+  </Link>
+
+  <a href="#contacts" className="hover:text-lime-600 transition">
+    Контакты
+  </a>
+</nav>
 
     <div className="hidden md:flex items-center gap-5">
       <a
