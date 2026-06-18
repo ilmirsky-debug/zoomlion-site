@@ -9,6 +9,8 @@ export default function BlogArticlePage() {
   const { slug } = router.query;
 
   const article = articles[slug];
+  const wordCount = article?.content?.join(" ").split(/\s+/).length || 0;
+const readingTime = Math.max(1, Math.ceil(wordCount / 180));
 
   if (!article) {
     return (
@@ -100,7 +102,38 @@ export default function BlogArticlePage() {
     }}
   />
 )}
-      </Head>
+
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Главная",
+          item: "https://zoomliontrade.ru",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Блог",
+          item: "https://zoomliontrade.ru/blog",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: article.title,
+          item: `https://zoomliontrade.ru/blog/${slug}`,
+        },
+      ],
+    }),
+  }}
+/>
+
+</Head>
 
       <main className="max-w-4xl mx-auto px-6 py-20">
         <nav className="text-sm text-stone-500 mb-8">
@@ -135,7 +168,7 @@ export default function BlogArticlePage() {
   </span>
 
   <span className="text-stone-500">
-    5 минут чтения
+    {readingTime} мин. чтения
   </span>
 </div>
 
