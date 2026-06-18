@@ -27,6 +27,79 @@ export default function BlogArticlePage() {
         <title>{article.title} | Блог Zoomlion Trade</title>
         <meta name="description" content={article.description} />
         <meta name="robots" content="index, follow" />
+        <meta property="og:type" content="article" />
+<meta property="og:title" content={article.title} />
+<meta property="og:description" content={article.description} />
+<meta
+  property="og:image"
+  content={`https://zoomliontrade.ru${article.image || "/hero1.png"}`}
+/>
+<meta
+  property="og:url"
+  content={`https://zoomliontrade.ru/blog/${slug}`}
+/>
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={article.title} />
+<meta name="twitter:description" content={article.description} />
+<meta
+  name="twitter:image"
+  content={`https://zoomliontrade.ru${article.image || "/hero1.png"}`}
+/>
+
+<link
+  rel="canonical"
+  href={`https://zoomliontrade.ru/blog/${slug}`}
+/>
+        <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: article.title,
+      description: article.description,
+      image: `https://zoomliontrade.ru${article.image || "/hero1.png"}`,
+      datePublished: article.date,
+      dateModified: article.date,
+      author: {
+        "@type": "Organization",
+        name: "Zoomlion Trade",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Zoomlion Trade",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://zoomliontrade.ru/logo.png",
+        },
+      },
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": `https://zoomliontrade.ru/blog/${slug}`,
+      },
+    }),
+  }}
+/>
+{article.faq && (
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: article.faq.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
+      }),
+    }}
+  />
+)}
       </Head>
 
       <main className="max-w-4xl mx-auto px-6 py-20">
@@ -48,18 +121,82 @@ export default function BlogArticlePage() {
   </span>
 </nav>
 
-        <p className="text-stone-500 mt-8 mb-3">{article.date}</p>
+        <div className="flex flex-wrap items-center gap-3 mt-8 mb-5 text-sm">
+  <span className="px-3 py-1 rounded-full bg-lime-100 text-lime-700 font-semibold">
+    {article.category}
+  </span>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-stone-900 mb-8">
-          {article.title}
-        </h1>
+  <span className="text-stone-500">
+    {article.date}
+  </span>
+
+  <span className="text-stone-400">
+    •
+  </span>
+
+  <span className="text-stone-500">
+    5 минут чтения
+  </span>
+</div>
+
+<h1 className="text-4xl md:text-5xl font-extrabold text-stone-900 mb-8 leading-tight">
+  {article.title}
+</h1>
         <div className="relative w-full h-[300px] md:h-[500px] rounded-3xl overflow-hidden mb-12">
   <Image
-    src="/hero1.png"
+    src={article.image || "/hero1.png"}
     alt={article.title}
     fill
     className="object-cover"
   />
+</div>
+<div className="mb-12 p-6 md:p-8 rounded-3xl bg-stone-950 text-white">
+  <h2 className="text-2xl font-extrabold mb-5">
+    Кратко
+  </h2>
+
+  <ul className="grid md:grid-cols-2 gap-4 text-stone-200">
+    <li>✓ Определите рабочую высоту и грузоподъёмность заранее.</li>
+    <li>✓ Для помещений чаще подходят электрические модели.</li>
+    <li>✓ Для улицы и тяжёлых условий лучше выбирать дизельную технику.</li>
+    <li>✓ Покупайте технику с запасом по параметрам и сервисной поддержкой.</li>
+  </ul>
+</div>
+<div className="flex items-center gap-4 mb-12 p-5 rounded-3xl border border-stone-200 bg-white">
+  <div className="w-14 h-14 rounded-full bg-lime-500 flex items-center justify-center text-black font-extrabold text-lg">
+    ZT
+  </div>
+
+  <div>
+    <p className="font-bold text-stone-900">
+      Команда Zoomlion Trade
+    </p>
+
+    <p className="text-sm text-stone-500">
+      Эксперты по складской и строительной технике
+    </p>
+  </div>
+</div>
+<div className="mb-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+  <div className="rounded-3xl bg-stone-950 text-white p-5">
+    <p className="text-3xl font-extrabold text-lime-400">10+</p>
+    <p className="text-sm text-stone-300 mt-2">лет опыта</p>
+  </div>
+
+  <div className="rounded-3xl bg-stone-950 text-white p-5">
+    <p className="text-3xl font-extrabold text-lime-400">500+</p>
+    <p className="text-sm text-stone-300 mt-2">единиц техники</p>
+  </div>
+
+  <div className="rounded-3xl bg-stone-950 text-white p-5">
+    <p className="text-3xl font-extrabold text-lime-400">24/7</p>
+    <p className="text-sm text-stone-300 mt-2">поддержка</p>
+  </div>
+
+  <div className="rounded-3xl bg-stone-950 text-white p-5">
+    <p className="text-3xl font-extrabold text-lime-400">РФ</p>
+    <p className="text-sm text-stone-300 mt-2">доставка по России</p>
+  </div>
 </div>
 <div className="mb-12 p-6 rounded-3xl bg-stone-100 border border-stone-200">
   <h2 className="text-xl font-bold mb-4">Содержание</h2>
@@ -78,48 +215,30 @@ export default function BlogArticlePage() {
             </p>
           ))}
         </div>
-<div className="mt-16 mb-16">
-  <h2 className="text-3xl font-bold text-stone-900 mb-8">
-    Часто задаваемые вопросы
-  </h2>
+{article.faq && (
+  <div className="mt-16 mb-16">
+    <h2 className="text-3xl font-bold text-stone-900 mb-8">
+      Часто задаваемые вопросы
+    </h2>
 
-  <div className="space-y-5">
+    <div className="space-y-5">
+      {article.faq.map((item, index) => (
+        <div
+          key={index}
+          className="p-6 rounded-3xl border border-stone-200 bg-white"
+        >
+          <h3 className="text-xl font-bold mb-3">
+            {item.question}
+          </h3>
 
-    <div className="p-6 rounded-3xl border border-stone-200 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Какой погрузчик лучше для склада?
-      </h3>
-
-      <p className="text-stone-600 leading-7">
-        Для закрытых помещений чаще выбирают электрические погрузчики, а для
-        интенсивной работы на улице — дизельные модели.
-      </p>
+          <p className="text-stone-600 leading-7">
+            {item.answer}
+          </p>
+        </div>
+      ))}
     </div>
-
-    <div className="p-6 rounded-3xl border border-stone-200 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Как выбрать грузоподъёмность?
-      </h3>
-
-      <p className="text-stone-600 leading-7">
-        Рекомендуется выбирать технику с запасом грузоподъёмности 15–20% от
-        максимального веса груза.
-      </p>
-    </div>
-
-    <div className="p-6 rounded-3xl border border-stone-200 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Что лучше: дизельный или электрический погрузчик?
-      </h3>
-
-      <p className="text-stone-600 leading-7">
-        Всё зависит от условий эксплуатации. Для складов предпочтительнее
-        электрические модели, а для улицы и тяжёлых условий — дизельные.
-      </p>
-    </div>
-
   </div>
-</div>
+)}
 <div className="mt-20 mb-16">
   <h2 className="text-3xl font-bold text-stone-900 mb-8">
     Читайте также
