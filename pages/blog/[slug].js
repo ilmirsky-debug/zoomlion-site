@@ -241,13 +241,37 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 180));
     <li>• На что обратить внимание перед покупкой</li>
   </ul>
 </div>
-        <div className="prose prose-stone max-w-none">
-          {article.content.map((paragraph, index) => (
-            <p key={index} className="text-lg leading-8 text-stone-700 mb-6">
+      {article.content && (
+  <div className="prose prose-stone max-w-none">
+    {article.content.map((paragraph, index) => (
+      <p key={index} className="text-lg leading-8 text-stone-700 mb-6">
+        {paragraph}
+      </p>
+    ))}
+  </div>
+)}
+        {article.sections && (
+  <div className="mt-16 space-y-16">
+    {article.sections.map((section, index) => (
+      <section key={index} className="scroll-mt-24">
+        <h2 className="text-3xl font-bold text-stone-900 mb-6 border-l-4 border-lime-500 pl-4">
+          {section.title}
+        </h2>
+
+        <div className="space-y-6">
+          {section.text.map((paragraph, pIndex) => (
+            <p
+              key={pIndex}
+              className="text-lg leading-8 text-stone-700"
+            >
               {paragraph}
             </p>
           ))}
         </div>
+      </section>
+    ))}
+  </div>
+)}
 {article.faq && (
   <div className="mt-16 mb-16">
     <h2 className="text-3xl font-bold text-stone-900 mb-8">
