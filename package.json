@@ -16,6 +16,7 @@
     "framer-motion": "^12.23.24",
     "jspdf": "^3.0.4",
     "next": "^15.5.2",
+    "node-telegram-bot-api": "^0.61.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "swiper": "^10.3.0"
