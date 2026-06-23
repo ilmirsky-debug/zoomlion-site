@@ -4,9 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { articles } from "../../content/blog";
 
-export default function BlogArticlePage() {
-  const router = useRouter();
-  const { slug } = router.query;
+export default function BlogArticlePage({ slug }) {
 
   const article = articles[slug];
   const wordCount = article?.content?.join(" ").split(/\s+/).length || 0;
@@ -366,4 +364,20 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 180));
       </main>
     </>
   );
+}
+export async function getStaticPaths() {
+  return {
+    paths: Object.keys(articles).map((slug) => ({
+      params: { slug },
+    })),
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  return {
+    props: {
+      slug: params.slug,
+    },
+  };
 }
