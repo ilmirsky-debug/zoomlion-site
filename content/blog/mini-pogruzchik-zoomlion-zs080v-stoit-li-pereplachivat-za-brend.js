@@ -5,7 +5,7 @@ export const article = {
   "excerpt": "Подробное руководство: мини-погрузчик zoomlion zs080v: стоит ли переплачивать за бренд?. Разбираем характеристики, условия эксплуатации, ошибки выбора и сервис.",
   "category": "Погрузчики",
   "date": "2026-06-22",
-  "image": "/hero1.png",
+  "image": "/blog/mini-pogruzchik-zoomlion-zs080v.png",
   "keywords": [
     "мини-погрузчик zoomlion zs080v",
     "мини-погрузчик zoomlion zs080v купить",
