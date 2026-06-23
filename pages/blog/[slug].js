@@ -229,16 +229,38 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 180));
     <p className="text-sm text-stone-300 mt-2">доставка по России</p>
   </div>
 </div>
-<div className="mb-12 p-6 rounded-3xl bg-stone-100 border border-stone-200">
-  <h2 className="text-xl font-bold mb-4">Содержание</h2>
+{article.sections && (
+  <div className="mb-12 p-6 md:p-8 rounded-3xl bg-stone-950 text-white border border-stone-800 shadow-xl">
+    <div className="flex items-center justify-between mb-6">
+      <h2 className="text-xl font-extrabold">
+        Содержание
+      </h2>
 
-  <ul className="space-y-3 text-stone-700">
-    <li>• Как определить грузоподъёмность</li>
-    <li>• Как выбрать высоту подъёма</li>
-    <li>• Дизельный или электрический погрузчик</li>
-    <li>• На что обратить внимание перед покупкой</li>
-  </ul>
-</div>
+      <span className="text-sm text-lime-400 font-semibold">
+        {article.sections.length} раздела
+      </span>
+    </div>
+
+    <ul className="space-y-3">
+      {article.sections.map((section, index) => (
+        <li key={index}>
+          <a
+            href={`#section-${index}`}
+            className="group flex items-center gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition"
+          >
+            <span className="text-lime-400 font-extrabold">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+
+            <span className="text-stone-200 group-hover:text-white transition">
+              {section.title}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
       {article.content && (
   <div className="prose prose-stone max-w-none">
     {article.content.map((paragraph, index) => (
@@ -251,7 +273,7 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 180));
         {article.sections && (
   <div className="mt-16 space-y-16">
     {article.sections.map((section, index) => (
-      <section key={index} className="scroll-mt-24">
+      <section id={`section-${index}`} key={index} className="scroll-mt-24">
         <h2 className="text-3xl font-bold text-stone-900 mb-6 border-l-4 border-lime-500 pl-4">
           {section.title}
         </h2>
@@ -266,6 +288,17 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 180));
             </p>
           ))}
         </div>
+        {section.quote && (
+  <blockquote className="mt-8 rounded-3xl bg-stone-950 text-white p-8 border-l-4 border-lime-500">
+    <p className="text-xl md:text-2xl font-bold leading-relaxed">
+      “{section.quote}”
+    </p>
+
+    <p className="mt-5 text-lime-400 font-semibold">
+      Zoomlion Trade
+    </p>
+  </blockquote>
+)}
       </section>
     ))}
   </div>
