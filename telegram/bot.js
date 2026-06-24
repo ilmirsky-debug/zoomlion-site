@@ -192,9 +192,13 @@ if (query.data === "attach_image") {
       `- natural daylight\n` +
       `- realistic proportions`;
 
-    await bot.sendMessage(
+        await bot.sendMessage(
       chatId,
-      `🖼 Промпт для изображения:\n\n${prompt}\n\nСохрани готовую картинку локально сюда:\npublic/blog/${lastDraftSlug}.png\n\nПотом в статье укажем:\n/blog/${lastDraftSlug}.png`
+      `🖼 Промпт для изображения:\n\n${prompt}\n\n` +
+        `Сохрани готовую картинку под именем:\n\n` +
+        `public/blog/${lastDraftSlug}.jpg\n\n` +
+        `В статье должно быть:\n` +
+        `/blog/${lastDraftSlug}.jpg`
     );
   }
 }

@@ -1,3 +1,4 @@
+import { article as miniEkskavatorZoomlionZe27guDlyaRabotVStesnennyhUsloviyahArticle } from "./mini-ekskavator-zoomlion-ze27gu-dlya-rabot-v-stesnennyh-usloviyah";
 import { article as dizelnyjNozhnichnyjPodemnikZoomlionZumlionZs1023rtDlyaStrojploschadokArticle } from "./dizelnyj-nozhnichnyj-podemnik-zoomlion-zumlion-zs1023rt-dlya-strojploschadok";
 import { article as dizelnyjNozhnichnyjPodemnikZoomlionZs1023rtDlyaStrojploschadokArticle } from "./dizelnyj-nozhnichnyj-podemnik-zoomlion-zs1023rt-dlya-strojploschadok";
 import { article as miniPogruzchikZoomlionZs080vStoitLiPereplachivatZaBrendArticle } from "./mini-pogruzchik-zoomlion-zs080v-stoit-li-pereplachivat-za-brend";
@@ -8,6 +9,7 @@ import { article as dieselArticle } from "./dizelnyj-ili-elektricheskij-pogruzch
 import { article as scissorLiftArticle } from "./kak-vybrat-nozhnichnyj-podemnik";
 
 export const articles = {
+  [miniEkskavatorZoomlionZe27guDlyaRabotVStesnennyhUsloviyahArticle.slug]: miniEkskavatorZoomlionZe27guDlyaRabotVStesnennyhUsloviyahArticle,
   [dizelnyjNozhnichnyjPodemnikZoomlionZumlionZs1023rtDlyaStrojploschadokArticle.slug]: dizelnyjNozhnichnyjPodemnikZoomlionZumlionZs1023rtDlyaStrojploschadokArticle,
   [dizelnyjNozhnichnyjPodemnikZoomlionZs1023rtDlyaStrojploschadokArticle.slug]: dizelnyjNozhnichnyjPodemnikZoomlionZs1023rtDlyaStrojploschadokArticle,
   [miniPogruzchikZoomlionZs080vStoitLiPereplachivatZaBrendArticle.slug]: miniPogruzchikZoomlionZs080vStoitLiPereplachivatZaBrendArticle,
