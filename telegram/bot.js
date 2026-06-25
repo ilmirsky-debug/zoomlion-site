@@ -3,6 +3,7 @@ const { exec } = require("child_process");
 let waitingForTopic = false;
 let waitingForEdit = false;
 let waitingForAiEdit = false;
+let waitingForImage = false;
 let lastDraftSlug = "";
 const token = "8472643401:AAELIRA7dMkVHNCU4q4gAtFD5JTfmjHx0hU";
 
@@ -160,17 +161,51 @@ if (query.data === "ai_edit") {
   if (!lastDraftSlug) {
     await bot.sendMessage(chatId, "❌ Нет активного черновика для ИИ-доработки.");
   } else {
-    waitingForEdit = true;
+    waitingForAiEdit = true;
 
     await bot.sendMessage(
       chatId,
-      "🧠 Напиши, что именно доработать с помощью ИИ.\n\nНапример:\nСделай статью более экспертной, увеличь объем, добавь больше SEO-ключей, усили блок про сервис и запчасти."
+      "🧠 Напиши, что именно доработать с помощью ИИ..."
     );
   }
 }
-if (query.data === "reject") {
-    await bot.sendMessage(chatId, "❌ Отклонено.");
+
+if (query.data === "attach_image") {
+  if (!lastDraftSlug) {
+    await bot.sendMessage(chatId, "❌ Нет активного черновика.");
+  } else {
+    const { article } = loadArticle(lastDraftSlug);
+
+    const prompt =
+      `Create a realistic professional commercial image for a blog article.\n\n` +
+      `Topic: ${article.title}\n\n` +
+      `Image requirements:\n` +
+      `- photorealistic construction or warehouse machinery scene\n` +
+      `- modern Zoomlion-style green industrial equipment\n` +
+      `- clean background, professional advertising look\n` +
+      `- no text on image\n` +
+      `- no watermark\n` +
+      `- no people close-up\n` +
+      `- 16:9 aspect ratio\n` +
+      `- high detail\n` +
+      `- suitable for a business blog hero image\n` +
+      `- natural daylight\n` +
+      `- realistic proportions`;
+
+        await bot.sendMessage(
+      chatId,
+      `🖼 Промпт для изображения:\n\n${prompt}\n\n` +
+        `Сохрани готовую картинку под именем:\n\n` +
+        `public/blog/${lastDraftSlug}.jpg\n\n` +
+        `В статье должно быть:\n` +
+        `/blog/${lastDraftSlug}.jpg`
+    );
   }
+}
+
+if (query.data === "reject") {
+  await bot.sendMessage(chatId, "❌ Отклонено.");
+}
 if (query.data === "new_article") {
   waitingForTopic = true;
 
@@ -209,6 +244,85 @@ exec(
 bot.answerCallbackQuery(query.id);
 });
 bot.on("message", async (msg) => {
+if (waitingForImage && msg.photo) {
+  waitingForImage = false;
+
+  if (!lastDraftSlug) {
+    await bot.sendMessage(msg.chat.id, "❌ Нет активного черновика.");
+    return;
+  }
+
+  await bot.sendMessage(msg.chat.id, "📥 Получил изображение. Сохраняю...");
+
+  const fs = require("fs");
+  const https = require("https");
+
+  const photo = msg.photo[msg.photo.length - 1];
+  const file = await bot.getFile(photo.file_id);
+  const fileUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
+
+  const imagePath = `/home/zoomlion-server/zoomlion-site/public/blog/${lastDraftSlug}.jpg`;
+  const imageUrl = `/blog/${lastDraftSlug}.jpg`;
+
+  fs.mkdirSync("/home/zoomlion-server/zoomlion-site/public/blog", {
+    recursive: true,
+  });
+
+  const downloadFile = () =>
+    new Promise((resolve, reject) => {
+      const out = fs.createWriteStream(imagePath);
+
+      https
+        .get(fileUrl, (response) => {
+          response.pipe(out);
+          out.on("finish", () => {
+            out.close(resolve);
+          });
+        })
+        .on("error", reject);
+    });
+
+  await downloadFile();
+
+  const { articlePath, article } = loadArticle(lastDraftSlug);
+  article.image = imageUrl;
+  saveArticle(articlePath, article);
+
+  await bot.sendMessage(
+    msg.chat.id,
+    `✅ Изображение прикреплено к статье:\n${imageUrl}`
+  );
+
+  return;
+}
+if (msg.text === "/imageprompt") {
+  if (!lastDraftSlug) {
+    await bot.sendMessage(msg.chat.id, "❌ Нет активного черновика.");
+    return;
+  }
+
+  const { article } = loadArticle(lastDraftSlug);
+
+  const prompt =
+    `Create a realistic professional commercial image for a blog article.\n\n` +
+    `Topic: ${article.title}\n\n` +
+    `Image requirements:\n` +
+    `- photorealistic construction or warehouse machinery scene\n` +
+    `- modern Zoomlion-style green industrial equipment\n` +
+    `- clean background, professional advertising look\n` +
+    `- no text on image\n` +
+    `- no watermark\n` +
+    `- no people close-up\n` +
+    `- 16:9 aspect ratio\n` +
+    `- high detail\n` +
+    `- suitable for a business blog hero image\n` +
+    `- natural daylight\n` +
+    `- realistic proportions`;
+
+  await bot.sendMessage(msg.chat.id, prompt);
+
+  return;
+}
 if (waitingForAiEdit) {
   if (!msg.text) return;
 
@@ -248,7 +362,10 @@ if (waitingForAiEdit) {
               [{ text: "🟢 Опубликовать черновик", callback_data: "publish_draft" }],
               [{ text: "✏️ Внести правки", callback_data: "edit_draft" }],
               [{ text: "🧠 ИИ-доработка", callback_data: "ai_edit" }],
-              [{ text: "❌ Отклонить", callback_data: "reject" }],
+[
+  { text: "🖼 Изображение", callback_data: "attach_image" },
+],              
+[{ text: "❌ Отклонить", callback_data: "reject" }],
             ],
           },
         });
@@ -284,6 +401,7 @@ saveArticle(articlePath, updatedArticle);
           [{ text: "🟢 Опубликовать черновик", callback_data: "publish_draft" }],
           [{ text: "✏️ Внести правки", callback_data: "edit_draft" }],
 [{ text: "🧠 ИИ-доработка", callback_data: "ai_edit" }],
+[{ text: "🖼 Изображение", callback_data: "attach_image" }],
           [{ text: "❌ Отклонить", callback_data: "reject" }],
         ],
       },
@@ -400,6 +518,7 @@ lastDraftSlug = slug;
 [
   { text: "🧠 ИИ-доработка", callback_data: "ai_edit" },
 ],
+[{ text: "🖼 Изображение", callback_data: "attach_image" }],
 [
   { text: "❌ Отклонить", callback_data: "reject" },
 ],
