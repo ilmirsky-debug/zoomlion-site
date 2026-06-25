@@ -5,7 +5,7 @@ export const article = {
   "excerpt": "Подробное руководство: дизельный ножничный подъемник zoomlion (зумлион) zs1023rt для стройплощадок. Разбираем характеристики, условия эксплуатации, ошибки выбора и сервис.",
   "category": "Подъемники",
   "date": "2026-06-23",
-  "image": "/hero4.png",
+  "image": "/blog/dizelnyj-nozhnichnyj-podemnik-zoomlion-zumlion-zs1023rt-dlya-strojploschadok.jpg",
   "keywords": [
     "дизельный ножничный подъемник zoomlion (зумлион) zs1023rt для стройплощадок",
     "дизельный ножничный подъемник zoomlion (зумлион) zs1023rt для стройплощадок купить",
