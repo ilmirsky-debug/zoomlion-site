@@ -1,0 +1,22 @@
+function makeImagePrompt(title) {
+  return `
+Create a realistic professional commercial image for a blog article.
+
+Topic: ${title}
+
+Image requirements:
+- photorealistic construction or warehouse machinery scene
+- modern Zoomlion-style green industrial equipment
+- clean background, professional advertising look
+- no text on image
+- no watermark
+- no people close-up
+- 16:9 aspect ratio
+- high detail
+- suitable for a business blog hero image
+- natural daylight
+- realistic proportions
+`.trim();
+}
+
+module.exports = { makeImagePrompt };
