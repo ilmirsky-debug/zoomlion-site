@@ -5,7 +5,7 @@ export const article = {
   "excerpt": "Подробное руководство: мини-экскаватор zoomlion ze27gu для работ в стесненных условиях. Разбираем характеристики, условия эксплуатации, ошибки выбора и сервис.",
   "category": "Погрузчики",
   "date": "2026-06-24",
-  "image": "/blog/mini-ekskavator-zoomlion-ze27gu-dlya-rabot-v-stesnennyh-usloviyah.png",
+  "image": "/blog/mini-ekskavator-zoomlion-ze27gu-dlya-rabot-v-stesnennyh-usloviyah.jpg",
   "keywords": [
     "мини-экскаватор zoomlion ze27gu для работ в стесненных условиях",
     "мини-экскаватор zoomlion ze27gu для работ в стесненных условиях купить",
