@@ -7,6 +7,7 @@ import { article as kakVybratTeleskopicheskijPogruzchikArticle } from "./kak-vyb
 import { article as kakVybratVilochnyjPogruzchikArticle } from "./kak-vybrat-vilochnyj-pogruzchik";
 import { article as miniEkskavatorZoomlionZe27guDlyaRabotVStesnennyhUsloviyahArticle } from "./mini-ekskavator-zoomlion-ze27gu-dlya-rabot-v-stesnennyh-usloviyah";
 import { article as miniPogruzchikZoomlionZs080vStoitLiPereplachivatZaBrendArticle } from "./mini-pogruzchik-zoomlion-zs080v-stoit-li-pereplachivat-za-brend";
+import { article as pochemuVybirayutZoomlionNadezhnostIEkonomichnostArticle } from "./pochemu-vybirayut-zoomlion-nadezhnost-i-ekonomichnost";
 
 export const articles = {
   [dizelnyjIliElektricheskijPogruzchikArticle.slug]: dizelnyjIliElektricheskijPogruzchikArticle,
@@ -18,4 +19,5 @@ export const articles = {
   [kakVybratVilochnyjPogruzchikArticle.slug]: kakVybratVilochnyjPogruzchikArticle,
   [miniEkskavatorZoomlionZe27guDlyaRabotVStesnennyhUsloviyahArticle.slug]: miniEkskavatorZoomlionZe27guDlyaRabotVStesnennyhUsloviyahArticle,
   [miniPogruzchikZoomlionZs080vStoitLiPereplachivatZaBrendArticle.slug]: miniPogruzchikZoomlionZs080vStoitLiPereplachivatZaBrendArticle,
+  [pochemuVybirayutZoomlionNadezhnostIEkonomichnostArticle.slug]: pochemuVybirayutZoomlionNadezhnostIEkonomichnostArticle,
 };
