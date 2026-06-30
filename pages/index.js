@@ -346,10 +346,10 @@ const visibleStock =
 
     <div className="hidden md:flex items-center gap-5">
       <a
-        href="tel:+79196224555"
+        href="tel:+79196228555"
         className="text-gray-900 font-semibold whitespace-nowrap hover:text-lime-600 transition"
       >
-        +7 919 622-45-55
+        +7 919 622-85-55
       </a>
 
       <button
@@ -383,13 +383,15 @@ const visibleStock =
       <a onClick={() => setMobileMenuOpen(false)} href="#service">
         Сервис
       </a>
-
+<a onClick={() => setMobileMenuOpen(false)} href="/blog">
+  Блог
+</a>
       <a onClick={() => setMobileMenuOpen(false)} href="#contacts">
         Контакты
       </a>
 
-      <a href="tel:+79196224555" className="text-lime-600 font-bold">
-        +7 919 622-45-55
+      <a href="tel:+79196228555" className="text-lime-600 font-bold">
+        +7 919 622-85-55
       </a>
 
       <button

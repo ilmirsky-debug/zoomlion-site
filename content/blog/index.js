@@ -1,6 +1,5 @@
 import { article as dizelnyjIliElektricheskijPogruzchikArticle } from "./dizelnyj-ili-elektricheskij-pogruzchik";
 import { article as dizelnyjNozhnichnyjPodemnikZoomlionZs1023rtDlyaStrojploschadokArticle } from "./dizelnyj-nozhnichnyj-podemnik-zoomlion-zs1023rt-dlya-strojploschadok";
-import { article as dizelnyjNozhnichnyjPodemnikZoomlionZumlionZs1023rtDlyaStrojploschadokArticle } from "./dizelnyj-nozhnichnyj-podemnik-zoomlion-zumlion-zs1023rt-dlya-strojploschadok";
 import { article as kakVybratKolenchatyjPodemnikArticle } from "./kak-vybrat-kolenchatyj-podemnik";
 import { article as kakVybratNozhnichnyjPodemnikArticle } from "./kak-vybrat-nozhnichnyj-podemnik";
 import { article as kakVybratTeleskopicheskijPogruzchikArticle } from "./kak-vybrat-teleskopicheskij-pogruzchik";
@@ -12,7 +11,6 @@ import { article as pochemuVybirayutZoomlionNadezhnostIEkonomichnostArticle } fr
 export const articles = {
   [dizelnyjIliElektricheskijPogruzchikArticle.slug]: dizelnyjIliElektricheskijPogruzchikArticle,
   [dizelnyjNozhnichnyjPodemnikZoomlionZs1023rtDlyaStrojploschadokArticle.slug]: dizelnyjNozhnichnyjPodemnikZoomlionZs1023rtDlyaStrojploschadokArticle,
-  [dizelnyjNozhnichnyjPodemnikZoomlionZumlionZs1023rtDlyaStrojploschadokArticle.slug]: dizelnyjNozhnichnyjPodemnikZoomlionZumlionZs1023rtDlyaStrojploschadokArticle,
   [kakVybratKolenchatyjPodemnikArticle.slug]: kakVybratKolenchatyjPodemnikArticle,
   [kakVybratNozhnichnyjPodemnikArticle.slug]: kakVybratNozhnichnyjPodemnikArticle,
   [kakVybratTeleskopicheskijPogruzchikArticle.slug]: kakVybratTeleskopicheskijPogruzchikArticle,
