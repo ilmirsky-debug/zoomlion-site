@@ -1,3 +1,16 @@
+import { Agent } from "undici";
+
+const telegramAgent = new Agent({
+  connect: {
+    lookup(hostname, options, callback) {
+      if (hostname === "api.telegram.org") {
+        return callback(null, "149.154.167.220", 4);
+      }
+
+      return require("dns").lookup(hostname, options, callback);
+    },
+  },
+});
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).end();
@@ -25,15 +38,21 @@ console.log("CHAT ID:", process.env.TELEGRAM_CHAT_ID ? "✅ Есть" : "❌ Н�
       return res.status(500).json({ error: "Нет Telegram-конфигурации" });
     }
 
-    const tgRes = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: message,
-        parse_mode: "Markdown",
-      }),
-    });
+    const tgRes = await fetch(
+  `https://api.telegram.org/bot${token}/sendMessage`,
+  {
+    method: "POST",
+    dispatcher: telegramAgent,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: message,
+      parse_mode: "Markdown",
+    }),
+  }
+);
 
     const data = await tgRes.json();
 

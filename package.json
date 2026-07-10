@@ -20,7 +20,8 @@
     "openai": "^6.45.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "swiper": "^10.3.0"
+    "swiper": "^10.3.0",
+    "undici": "^8.7.0"
   },
   "devDependencies": {
     "@opennextjs/aws": "^3.8.5",
