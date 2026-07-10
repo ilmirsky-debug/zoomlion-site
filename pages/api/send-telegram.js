@@ -1,3 +1,4 @@
+import https from "https";
 import { Agent } from "undici";
 
 const telegramAgent = new Agent({
@@ -38,23 +39,47 @@ console.log("CHAT ID:", process.env.TELEGRAM_CHAT_ID ? "✅ Есть" : "❌ Н�
       return res.status(500).json({ error: "Нет Telegram-конфигурации" });
     }
 
-    const tgRes = await fetch(
-  `https://api.telegram.org/bot${token}/sendMessage`,
-  {
-    method: "POST",
-    dispatcher: telegramAgent,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text: message,
-      parse_mode: "Markdown",
-    }),
-  }
-);
+    const data = await new Promise((resolve, reject) => {
+  const body = JSON.stringify({
+    chat_id: chatId,
+    text: message,
+    parse_mode: "Markdown",
+  });
 
-    const data = await tgRes.json();
+  const req = https.request(
+    {
+      host: "149.154.167.220",
+      servername: "api.telegram.org",
+      path: `/bot${token}/sendMessage`,
+      method: "POST",
+      headers: {
+        Host: "api.telegram.org",
+        "Content-Type": "application/json",
+        "Content-Length": Buffer.byteLength(body),
+      },
+    },
+    (response) => {
+      let result = "";
+
+      response.on("data", (chunk) => {
+        result += chunk;
+      });
+
+      response.on("end", () => {
+        try {
+          resolve(JSON.parse(result));
+        } catch (e) {
+          reject(e);
+        }
+      });
+    }
+  );
+
+  req.on("error", reject);
+
+  req.write(body);
+  req.end();
+});
 
     if (data.ok) {
       return res.status(200).json({ ok: true });
