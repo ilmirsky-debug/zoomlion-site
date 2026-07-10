@@ -1,17 +1,17 @@
 import https from "https";
-import { Agent } from "undici";
+import dns from "dns";
 
-const telegramAgent = new Agent({
-  connect: {
-    lookup(hostname, options, callback) {
-      if (hostname === "api.telegram.org") {
-        return callback(null, "149.154.167.220", 4);
-      }
-
-      return require("dns").lookup(hostname, options, callback);
-    },
-  },
+const telegramHttpsAgent = new https.Agent({
+  keepAlive: true,
 });
+
+const telegramLookup = (hostname, options, callback) => {
+  if (hostname === "api.telegram.org") {
+    return callback(null, "149.154.167.220", 4);
+  }
+
+  return dns.lookup(hostname, options, callback);
+};
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).end();
@@ -48,10 +48,12 @@ console.log("CHAT ID:", process.env.TELEGRAM_CHAT_ID ? "✅ Есть" : "❌ Н�
 
   const req = https.request(
     {
-      host: "149.154.167.220",
+      hostname: "149.154.167.220",
+      port: 443,
       servername: "api.telegram.org",
       path: `/bot${token}/sendMessage`,
       method: "POST",
+      agent: telegramHttpsAgent,
       headers: {
         Host: "api.telegram.org",
         "Content-Type": "application/json",
@@ -67,7 +69,11 @@ console.log("CHAT ID:", process.env.TELEGRAM_CHAT_ID ? "✅ Есть" : "❌ Н�
 
       response.on("end", () => {
         try {
-          resolve(JSON.parse(result));
+          const parsed = JSON.parse(result);
+
+console.log("Telegram response:", parsed);
+
+resolve(parsed);
         } catch (e) {
           reject(e);
         }
