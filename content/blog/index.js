@@ -7,6 +7,7 @@ import { article as kakVybratVilochnyjPogruzchikArticle } from "./kak-vybrat-vil
 import { article as miniEkskavatorZoomlionZe27guDlyaRabotVStesnennyhUsloviyahArticle } from "./mini-ekskavator-zoomlion-ze27gu-dlya-rabot-v-stesnennyh-usloviyah";
 import { article as miniPogruzchikZoomlionZs080vStoitLiPereplachivatZaBrendArticle } from "./mini-pogruzchik-zoomlion-zs080v-stoit-li-pereplachivat-za-brend";
 import { article as podemnikiZoomlionDlyaRabotyVnutriPomeschenijINaOtkrytomVozduheArticle } from "./podemniki-zoomlion-dlya-raboty-vnutri-pomeschenij-i-na-otkrytom-vozduhe";
+import { article as sravneniePodemnikovArticle } from "./sravnenie-podemnikov";
 
 export const articles = {
   [dizelnyjIliElektricheskijPogruzchikArticle.slug]: dizelnyjIliElektricheskijPogruzchikArticle,
@@ -18,4 +19,5 @@ export const articles = {
   [miniEkskavatorZoomlionZe27guDlyaRabotVStesnennyhUsloviyahArticle.slug]: miniEkskavatorZoomlionZe27guDlyaRabotVStesnennyhUsloviyahArticle,
   [miniPogruzchikZoomlionZs080vStoitLiPereplachivatZaBrendArticle.slug]: miniPogruzchikZoomlionZs080vStoitLiPereplachivatZaBrendArticle,
   [podemnikiZoomlionDlyaRabotyVnutriPomeschenijINaOtkrytomVozduheArticle.slug]: podemnikiZoomlionDlyaRabotyVnutriPomeschenijINaOtkrytomVozduheArticle,
+  [sravneniePodemnikovArticle.slug]: sravneniePodemnikovArticle,
 };
